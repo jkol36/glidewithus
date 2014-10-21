@@ -1,0 +1,132 @@
+ 
+-load staticfiles
+
+head
+	link(rel="stylesheet", href="{{STATIC_URL}}landing/css/base.css")
+	link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+	link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+	link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
+	link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
+	link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+	meta(charset="utf-8")
+	meta(name="viewport", content="width=device-width, initial-scale=1")
+	title GlideWithUs
+
+	.nav.navbar-default(role="navigation")
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+
+				a.navbar-brand#navbrand(href="{{home}}/home")
+					img(src="{{STATIC_URL}}/landing/images/logo1.png")
+			.collapse.navbar-collapse#collapsed_nav
+				ul.nav.navbar-nav.navbar-right
+					li
+						a(href="#Invite", data-toggle="modal", data-target="#Registration") Login
+					li 
+						a(href="#Invite", data-toggle="modal", data-target="#Registration") Sign Up
+
+.modal.fade#Registration(tabindex="-1", role="dialog", aria-labelledby="#Invite", ara-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only Close
+				h4.modal-title#register You are almost there!
+			.modal-body
+				ul.nav.nav-tabs(role="tablist")
+					li.active
+						a(href="#requestinvite", data-toggle="tab") Request an Invite
+					li
+						a(href="#Login", data-toggle="tab") Login
+				.tab-content
+					.tab-pane.fade.in.active#requestinvite
+						form(role="form", action="{% url 'landing' %}", method="POST")
+							.form-group
+								{%csrf_token%}
+								{{ form }}
+							button.btn.btn-success(type="submit", value="submit", method="POST") Request an Invite
+							
+
+					.tab-pane#Login 
+						form(action="{% url 'login' %}", type="submit", method="POST")
+							.form-group
+								{%csrf_token%}
+								label(for="username") username
+								input.form-control#login-username(type="username", name="username", placeholder="username")
+							.form-group
+								label(for="password") Password
+								input.form-control#login-password(type="password", name= "password", placeholder="password")
+	
+
+							button.btn.btn-success(type="submit", value="submit") Login 
+
+
+	
+		
+body		
+	#wrap
+		-block section1
+		.bg
+		.jumbotron#backgroundimage
+			-block content_section_1
+			-endblock content_section_1
+		-endblock section1
+		-block section2
+		-endblock section2
+		-block section3
+		-endblock section3
+
+	-block footer
+	.footer(style="background-color:#eee;")
+		p.text-muted(style="text-align:center;")
+			span.
+				built with love by 
+			a(href="http://twitter.com/jkol36") @jkol36
+			span.
+				and 
+			a(href="http://twitter.com/martolini") @Martolini
+		
+	-endblock footer
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+script(src="{{STATIC_URL}}/landing/js/parrallax.js")
+script(src="{{STATIC_URL}}/landing/js/modernizr.js")
+script(src="{{STATIC_URL}}/landing/js/main.js")
+
+
+
+
+

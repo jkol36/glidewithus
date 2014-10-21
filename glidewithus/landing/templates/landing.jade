@@ -1,0 +1,16 @@
+extends base
+-load staticfiles
+
+-block content_section_1
+h1 Find and connect with likeminded individuals
+button.btn.btn-primary(href="#Invite", data-toggle="modal", data-target="#Registration") REQUEST AN INVITE
+-endblock content_section_1
+
+-block section2
+.container-fluid#section2
+	.content(style="width:50%; margin-left:25%;")
+		h1.text-danger What's going on here?
+		p.text-primary We believe that connecting people can change the world, or atleast on a smaller scale, their lives.
+		button.btn.btn-success#agree(href="#Invite", data-target="#Registration", data-toggle='modal') I agree
+		button.btn.btn-danger#disagree I don't Agree
+-endblock section2

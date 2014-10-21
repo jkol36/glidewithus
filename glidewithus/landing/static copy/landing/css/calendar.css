@@ -1,0 +1,167 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+.main_entire_inner {
+	overflow-y:scroll;
+	padding-bottom:80px !important;
+	height: 350px !important;
+}
+
+#cal_container.center_entire {
+	height:500px !important;
+
+}
+#price_container.center_entire {
+	height: 500px !important;
+	width: 590px !important;
+}
+#overview_entire.center_entire {
+	height: 500px !important;
+
+}
+#amenities_entire.center_entire {
+	height: 500px !important;
+	padding-bottom: 104px !important;
+
+}
+#myentire {
+	padding-bottom: 120px !important;
+
+}
+#photos_container.center_entire {
+	height: 500px !important;
+
+}
+}
+
+#listing_entire.center_entire {
+	height: 468px;
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus{
+    background: rgb(0, 176, 255)!important;
+	color: #FFFFFF!important;
+    text-decoration: none!important;
+	text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2)!important;
+	border:none !important;
+	border-radius:0px!important;
+} 
+
+.ui-menu .ui-menu-item a.ui-state-hover, .ui-menu .ui-menu-item a.ui-state-active  {
+    background-color: rgb(0, 176, 255)!important;
+	outline:0px none;
+    text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2)!important;
+    color: rgb(255, 255, 255)!important;
+    text-decoration: none!important;  
+   
+}
+.ui-menu .ui-menu-item a {
+    font-weight: normal!important;
+	margin:-1.2px -1.8px 0px -1.8px !important;
+    padding: 12px!important;
+    font-size: 1.2em!important;
+    display: block!important;
+    clear: both!important;
+    line-height: 18px!important;
+    color: rgb(57, 60, 61)!important;
+    white-space: nowrap!important;
+	border-bottom: 1px solid rgb(238, 238, 238)!important;
+	border-radius:0px!important;
+}
+.ui-menu li:first-child a{
+border-top-width:0px!important;
+}
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-bottom-right-radius: 4px!important;
+    border-bottom-left-radius: 4px!important;
+    border-top-right-radius: 0px!important;
+    border-top-left-radius: 0px!important;
+}
+.pac-item-query
+{
+	color:#0F92CD;
+	cursor: pointer;
+	font-size: 16px;
+}
+.pac-item
+{
+	color:#0F92CD;
+	cursor: pointer;
+	font-size: 16px;
+	padding-left: 10px;
+}
+/*.pac-container .pac-item:hover, .pac-container .pac-item.pac-selected{
+background: url("https://a0.muscache.com/airbnb/static/landing_pages/home_v2/search-option-highlight-bg-fdcbf17186af2f120363d76c8b768954.jpg") repeat-x scroll 0px 0px rgb(19, 132, 179) !important;
+color: white;
+}*/
+.pac-icon
+{
+	width:0px;
+}
+.pac-container
+{
+	border: black;
+}
+.Box_Head bookhead h2{
+ 	text-align:left;
+ }
+ .dashed_table .label {
+ 	/*width:132px !important;*/
+ }
+ .container_bg {
+    text-align: left;
+}
+.dashed_table .data .inner {
+/*    margin: -43px 0 0 125px;*/
+}
+.bookhead > h2 {
+	text-align:left !important;
+	}
+.Box_Content
+{
+	
+	<p> Please provide your billing details now and the 
+place shall be booked for your purpose</p>
+
+}
+
+#property_details #hosting_details p{
+    padding: 4px 0 -8px;
+}
+#hosting_details > p {
+    display: block;
+    position: relative;
+    right: 5%;
+}
+#property_details .main_photo {
+    border: 1px solid #CFCFCF;
+    display: block;
+    float: left;
+    height: 140px;
+    margin-right: 21px;
+    padding: 2px;
+    width: 160px !important;
+}
+/*.Box_Content {
+    width: 28% !important;
+}*/
+/*hosting_details > p {
+    display: block;
+    position: relative;
+    right: -64%;
+     bottom: 125%;
+}*/
+/*.logo {
+    float: inherit !important;
+    margin: 2px 0 0 10px;
+}*/
+ /*
+.pac-item-query:hover {
+	background: url("http://products.cogzidel.com/images/advanced_search_bg.png") repeat scroll 0 0 rgb(19, 132, 179) !important;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.pac-item:hover {
+	background: url("http://products.cogzidel.com/images/advanced_search_bg.png") repeat scroll 0 0 rgb(19, 132, 179) !important;
+	color: #FFFFFF;
+	font-weight: bold;
+}*/
+

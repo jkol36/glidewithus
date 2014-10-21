@@ -1,0 +1,127 @@
+html
+	head
+		link(rel="stylesheet", href="{{STATIC_URL}}/profiles/css/base.css")
+		link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+		link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		title GlideWithUs
+
+	.nav.navbar-default(role="navigation")
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+
+				a.navbar-brand#navbrand(href="{{home}}/home")
+					img(src="{{STATIC_URL}}/landing/images/logo1.png")
+			.collapse.navbar-collapse#collapsed_nav
+				ul.nav.navbar-nav.navbar-right
+					li.dropdown
+						a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#") {{user.first_name}}
+							span.caret
+						
+						ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+							li 
+								a(href="profile") My Profile
+							li
+								a(href="settings") Edit Settings
+							li
+								a(href="{% url 'logout' %}") Logout
+
+					li.dropdown
+						a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
+							span.caret
+						ul.dropdown-menu(role="menu", aria-labelledby="Browse")
+							li
+								a(href="#") By Interests
+							li 
+								a(href="#") By Company
+							li
+								a(href="#") By profession
+					li
+						a(href="#") Help
+	.row
+		.col-lg-4
+		.col-lg.col-lg-6(style="margin-top:1%")
+			
+			form.form-inline(role="form", method="POST", action="{url 'marketplace' %}")
+				.form-group
+					{%csrf_token%}
+					input.form-control(type="text", id="Location", placeholder="Where are you going?",)
+				.form-group
+					{%csrf_token%}
+					input.form-control(type="text", placeholder="Arrival Date")
+				.form-group
+					{%csrf_token%}
+					input.form-control(type="text", placeholder="Departure Date")
+				button.btn.btn-success(type="submit", value="submit") Search
+			
+
+						
+	.row(style="margin-left:1%;")			
+		.col-sm.col-lg-4(style="margin-top:1%;")
+			.panel-group#Filter
+				.panel.panel-default
+					.panel-heading 
+						h4.panel-title
+							a(data-toggle="collapse", data-parent="#Filter", href="#filter") Filter
+					.panel-collapse.collapse.in#filter
+						.panel-body
+							.panel-group#accordion
+								.panel.panel-default
+									.panel-heading 
+										h4.panel-title
+											a(data-toggle="collapse", data-parent="accordion", href="#collapse_interests") By interests
+									.panel-collapse.collapse.out#collapse_interests
+										.panel-body#interestform
+											h1(style="font-size:1.2em;") Current Interests
+											{% for interest in interests %}
+											
+											{{interest}}
+											{%endfor%}
+											
+							.panel-group#accordion
+								.panel.panel-default
+									.panel-heading
+										h4.panel-title
+											a(data-toggle="collapse", data-parent="#accordion", href="#collapse_company") By Company
+									.panel-collapse.collapse.out#collapse_company
+										.panel-body
+											h1(style="font-size:1em;") Current Companies
+											{% for company in companies %}
+											
+											{{company}}
+											{%endfor%}
+
+
+							.panel-group#accordion
+								.panel.panel-default
+									.panel-heading
+										h4.panel-title
+											a(data-toggle="collapse", data-parent="#accordion", href="#collapse_profession") By Profession
+									.panel-collapse.collapse.out#collapse_profession
+										.panel-body
+											{% for profession in professions %}
+		
+											{{profession}}
+											{%endfor%}
+								button.btn.btn-success(role="button", type="submit", style="margin-top:5px; margin-right:0, margin-left:auto;", value="submit") Apply Filters
+		.col-sm.col-lg-7(style="margin-top:1%;")
+			.panel.panel-default
+				.panel-heading Results
+
+	
+
+
+
+
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+script(src="{{STATIC_URL}}/profiles/js/holder.js")			

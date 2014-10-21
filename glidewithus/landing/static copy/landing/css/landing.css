@@ -1,0 +1,27 @@
+body {
+	background: #f7f7f7;
+}
+
+.blue_home {
+	background-image: -moz-linear-gradient(center top, #00aeff 0, #018fe1 100%);
+	background-image: -webkit-linear-gradient(top, #00aeff 0, #018fe1 100%);
+	border: 1px solid #0175b8;
+	background-color: #018fe1;
+	border-radius: 3px;
+	box-shadow: 0px 0px 0px transparent;
+	color: #FFFFFF;
+	cursor: pointer;
+	font-size: 15px;
+	font-weight: bold;
+	line-height: 15px;
+	height: 41px;
+	margin: 0;
+	padding: 11px 11px 11px 6px !important;
+	text-transform: capitalize;
+	vertical-align: middle;
+}
+
+#location, #checkin, #checkout, #submit_location, #guests_caption {
+	height: auto;
+
+}

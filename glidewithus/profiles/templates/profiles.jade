@@ -1,0 +1,256 @@
+
+html
+	head
+		link(rel="stylesheet", href="{{STATIC_URL}}/profiles/css/base.css")
+		link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+		link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		title GlideWithUs
+
+	.nav.navbar-default(role="navigation")
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+
+				a.navbar-brand#navbrand(href="{{home}}/home")
+					img(src="{{STATIC_URL}}/landing/images/logo1.png")
+			.collapse.navbar-collapse#collapsed_nav
+				{%if user.first_name %}
+				ul.nav.navbar-nav.navbar-right
+					li.dropdown
+						a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#") {{user.first_name}}
+							span.caret
+						
+						ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+							li
+								a(href="profile") My Profile
+							li
+								a(href="settings") Edit Settings
+							li
+								a(href="{% url 'logout' %}") Logout
+
+					li.dropdown
+						a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
+							span.caret
+						ul.dropdown-menu(role="menu", aria-labelledby="Browse")
+							li
+								a(href="#") By Interests
+							li 
+								a(href="#") By Company
+							li
+								a(href="#") By profession
+					li
+						a(href="#") Help
+				
+				{%endif%}
+
+
+	.modal.fade#Add_Company(tabindex="-1", role="dialog", aria-labelledby="#Add_Company", aria-hidden="true")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+					h4.modal-title#Company Add a Company
+				.modal-body
+					form(role="form", action="{% url 'profile' %}", method="POST")
+						.form-group
+							{%csrf_token%}
+							{{form.companyform}}
+						button.btn.btn-success(type="submit", value="submit") Add Company
+	.modal.fade#Edit_Location(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="#Edit_Location")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+					h4.modal-title#Location Edit Location
+				.modal-body
+					form(role="form", action="{% url 'profile' %}", method="POST")
+						.form-group
+							{%csrf_token%}
+							{{form.locationform}}
+						button.btn.btn-success(type="submit", value="submit") Change Location
+	.modal.fade#edit_awesome(tabindex="-1", role="dialog", aria-labelledby="#edit_awesome", aria-hidden="true")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+					h4.modal-title#awesome
+				.modal-body
+					form(role="form", action="{% url 'profile' %}", method="POST")
+						.form-group
+							{%csrf_token%}
+							{{form.awesomeform}}
+						button.btn.btn-success(type="submit", value="submit") Change
+	
+	.modal.fade#Edit_Mission(tab-index="-1", role="dialog", aria-hidden="True", aria-labelledby="#Edit_Mission")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+					h4.modal-title#mission Edit Mission
+				.modal-body
+					form(role="form", action="{% url 'profile' %}", method="POST")
+						.form-group
+							{%csrf_token%}
+							{{form.missionform}}
+						button.btn.btn-success Change Mission					 
+	.modal.fade#edit_travelerpitch(tabindex="-1", role="dialog", aria-labelledby="#edit_travelerpitch", aria-hidden="true")
+		.modal-dialog
+			.modal-content
+				.modal-header
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+					h4.modal-title#awesome
+				.modal-body
+					form(role="form", action="{% url 'profile' %}", method="POST")
+						.form-group
+							{%csrf_token%}
+							{{form.travelform}}
+						button.btn.btn-success(type="submit", value="submit") Change 
+	.container-fluid
+		.row(style="margin:0 auto; padding-top:2%;")
+			.col-sm.col-md-3
+				.thumbnail
+					img(src="http://placehold.it/300x300")
+					.caption
+						li(style="text-decoration:none; list-style:none;")
+							a#dLabel(href="#", style="text-decoration:none; color:inherit;", role="button", data-toggle="dropdown", data-target="#") {{user.first_name}} {{user.last_name}}
+								span.caret
+							ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+								li
+									a(href="#") Change name
+						{%if 'False' in city %}
+						span
+							a(href="#Edit_Location", data-toggle="modal", data-target="#Edit_Location") Add a Location
+						{%endif%}
+						{% if 'False' not in city %} 
+						li(style="text-decoration:none; list-style:none;")
+							a#Edit_City(href="#", style="text-decoration:none; color:inherit;", role="dropdown", data-toggle="dropdown", data-target="#") {{city}} {{state}} {{country}}
+								span.caret
+							ul.dropdown-menu(role="menu", aria-labelledby="Edit_City")
+								li 
+									a(href="#Edit_Location", data-toggle="modal", data-target="#Edit_Location") Edit Location
+						{%endif%}
+						{%if company%}
+						{%for i in company %}
+						li(style="text-decoration:none; list-style:none; font-weight:bold;") {{i}}
+						{%endfor%}
+						span 
+							a(href="#Add_Company", data-toggle="modal", data-target="#Add_Company") Add a Company
+						{%endif%}
+						{%if not company %}
+						br
+						span
+							a(href="#Add_Company", data-toggle="modal", data-target="#Add_Company") Add a company
+						{%endif%}
+
+
+			.col-sm.col-md-6.col-centered
+				.panel.panel-default
+					.panel-heading Bio
+					.panel-body
+						h1(style="font-size:2em;") Mission Statement
+						p(style="font-family:Raleway;") {{mission}}
+							span
+								a(href="#Edit_Mission", data-toggle="modal", data-target="#Edit_Mission", style="padding-left:5px;") Edit
+						h1(style="font-size:1em;") Proffessions
+						{%for p in proffession%}
+						button.btn.btn-warning(style="margin-top:5px;") {{p}}
+						{%endfor%}
+						form(role="form", method="POST", action="{% url 'profile' %}")
+							.form-group
+								{%csrf_token%}
+								{{form.professionform}}
+							button.btn.btn-success(type="submit", value="submit") Add New Profession
+
+
+			.col-sm.col-md-3
+				.panel.panel-default
+					.panel-heading Your interests
+					.panel-body
+						{%for i in interests%}
+						button.btn.btn-danger(style="margin-top:5px;") {{i}}	
+						{%endfor%}
+						form(role="form", method="POST", action="{% url 'profile' %}")
+							.form-group
+								{%csrf_token%}
+								{{form.interestform}}
+							button.btn.btn-success(type="submit", value="submit") Add			
+		
+
+		.row
+			.col-md-3
+			.col-sm.col-md-6
+				.panel.panel-default
+					.panel-heading Questions
+					.panel-body
+						.panel.panel-success
+							.panel-heading Why are you awesome?
+							.panel-body
+								{%if not awesome %}
+								h2 Nothing here :(
+									span 
+										a(href="#edit_awesome", data-toggle="modal", data-target="#edit_awesome") Add something
+								{%endif%}
+								{% if awesome %}
+								h2 {{awesome}}
+								span
+									a(href="#edit_awesome", data-toggle="modal", data-target="#edit_awesome") Change
+								{%endif%}
+						.panel.panel-success
+							.panel-heading Why would a traveler want to meet up with you?
+							.panel-body
+								{%if not traveler_pitch%}
+								h2 Nothing here :(
+									span 
+										a(href="#edit_travelerpitch", data-toggle="modal", data-target="#edit_travelerpitch") Add something
+								{%endif%}
+								{%if traveler_pitch%}
+								h2 {{traveler_pitch}}
+								span
+									a(href="#edit_travelerpitch", data-toggle="modal", data-target="#edit_travelerpitch") Change
+								{%endif%}
+
+						
+						
+			.col-md-3
+				.panel.panel-default
+					.panel-heading Stats
+					.panel-body 
+						p(style="font-weight:bold;") User Number:
+							span(style="font-weight:200; padding-left:5px;") 
+								{{user.id}}
+
+
+
+				
+
+	
+		
+
+
+
+
+					
+						
+								
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+script(src="{{STATIC_URL}}/profiles/js/holder.js")						

@@ -1,0 +1,56 @@
+
+{% if user.is_authenticated %}
+html
+	head
+		link(rel="stylesheet", href="{{STATIC_URL}}/landing/css/base.css")
+		link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+		link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		title GlideWithUs
+	.nav.navbar-default(role="navigation")
+		.container-fluid
+			.navbar-header
+				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
+					span.sr-only Toggle navigation
+					span.icon-bar
+					span.icon-bar
+					span.icon-bar
+
+				a.navbar-brand#navbrand(href="{{home}}/home")
+					img(src="{{STATIC_URL}}/landing/images/logo1.png")
+			.collapse.navbar-collapse#collapsed_nav
+				ul.nav.navbar-nav.navbar-right
+					li.dropdown
+						a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#") {{user.username}}
+							span.caret
+					
+						ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+							li
+								a(href="#") Edit Profile
+							li
+								a(href="") Logout
+
+					li.dropdown
+						a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
+							span.caret
+						ul.dropdown-menu(role="menu", aria-labelledby="Browse")
+							li
+								a(href="#") By Interests
+							li 
+								a(href="#") By Company
+							li
+								a(href="#") By profession
+					li
+						a(href="#") Help
+
+
+{% endif %}
+					
+						
+										
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")				
