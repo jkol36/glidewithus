@@ -25,7 +25,7 @@ body {
 } 
 
 .bg {
-	background:url('../images/background.jpg') no-repeat center center;
+	background:url('../images/Background.jpg') no-repeat center center;
 	overflow: hidden;
 	position:fixed;
 	width: 100%;

@@ -1,0 +1,27 @@
+#purchasecoffee {
+	font-size:0.8em;
+}
+
+
+#results a {
+	text-decoration: none;
+	font-size:1.3em;
+}
+#results p {
+	font-size: 1.1em;
+}
+
+#results .row {
+	padding-top:1%;
+	padding-bottom:1%;
+	margin-top:1%;
+	margin-bottom: 1%;
+}
+
+#LocationSearch {
+	width:75%;
+}
+
+#LocationSearch > input {
+	width:100%;
+}

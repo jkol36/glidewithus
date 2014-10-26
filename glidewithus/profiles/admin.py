@@ -6,8 +6,8 @@ from models import GlideProfile, Interest, Company, Proffession
 
 
 class GlideProfileAdmin(admin.ModelAdmin):
-	fields = ['mission_statement', 'profile', 'state', 'country', 'age']
-	list_display  = ['mission_statement', 'profile', 'age','country', 'state','has_profile_pic','isfacebook_user', 'istwitter_user', 'why_awesome', 'traveler_pitch']
+	fields = ['mission_statement', 'profile',  'state', 'country', 'age']
+	list_display  = ['mission_statement', 'profile', 'city', 'age','country', 'state','has_profile_pic','isfacebook_user', 'istwitter_user', 'why_awesome', 'traveler_pitch']
 class CityAdmin(admin.ModelAdmin):
 	fields = ['name', 'country', 'state', 'has_local', 'total_locals']
 	list_display = ['name', 'country', 'has_local', 'total_locals']

@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from models import GlideProfile, Interest, Proffession, Company
 from forms import GlideProfileForm, UpdateUserForm, InterestForm, CompanyForm, ProfessionForm, LocationForm, awesomeform, travelform, missionform
+from glidewithus.marketplace.forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionForm, SearchLocationForm
 from sorl.thumbnail import ImageField
 
 
@@ -35,7 +36,7 @@ def profile(request):
 			mission = request.user.glideprofile.mission_statement
 			awesome = request.user.glideprofile.why_awesome
 			traveler_pitch = request.user.glideprofile.traveler_pitch
-			forms = {'gprofileform':GlideProfileForm(), 'locationform':LocationForm(), 'missionform':missionform, 'updateuserform':UpdateUserForm(), 'interestform':InterestForm(), 'companyform':CompanyForm(), 'professionform':ProfessionForm, 'awesomeform':awesomeform, 'travelform':travelform}
+			forms = {'gprofileform':GlideProfileForm(), 'locationform':LocationForm(), 'searchlocationform':SearchLocationForm, 'filterbyprofessionform':filterbyprofessionForm, 'filterbycompanyform':filterbycompanyForm, 'filterbyinterestform':filterbyinterestForm, 'missionform':missionform, 'updateuserform':UpdateUserForm(), 'interestform':InterestForm(), 'companyform':CompanyForm(), 'professionform':ProfessionForm, 'awesomeform':awesomeform, 'travelform':travelform}
 			if request.POST:
 				if 'mission_statement' in request.POST:
 					print dir(request.user)
@@ -138,7 +139,7 @@ def profile(request):
 						return redirect('profile')
 
 		except Exception, e:
-			return e
+			print e
 		print city
 		print awesome
 		return render(request, 'profiles.jade', {'form':forms, 'interests':interests, 'proffession':proffession, 'company':company, 'mission':mission, 'awesome':awesome, 'traveler_pitch': traveler_pitch, 'city':city,'state':state, 'country':country})
