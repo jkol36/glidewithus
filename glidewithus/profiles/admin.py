@@ -6,10 +6,16 @@ from sorl.thumbnail.admin import AdminImageMixin
 
 
 
+<<<<<<< HEAD
 
 class GlideProfileAdmin(AdminImageMixin, admin.ModelAdmin):
 	fields = ['mission_statement', 'profile',  'state', 'country', 'age', 'profile_pic' ]
 	list_display  = ['mission_statement', 'profile', 'profile_pic', 'city', 'age','country', 'state','has_profile_pic','isfacebook_user', 'istwitter_user', 'why_awesome', 'traveler_pitch']
+=======
+class GlideProfileAdmin(admin.ModelAdmin):
+	fields = ['mission_statement', 'profile',  'state', 'country', 'age']
+	list_display  = ['mission_statement', 'profile', 'city', 'age','country', 'state','has_profile_pic','isfacebook_user', 'istwitter_user', 'why_awesome', 'traveler_pitch']
+>>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 class CityAdmin(admin.ModelAdmin):
 	fields = ['name', 'country', 'state', 'has_local', 'total_locals']
 	list_display = ['name', 'country', 'has_local', 'total_locals']

@@ -10,10 +10,16 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from models import GlideProfile, Interest, Proffession, Company
+<<<<<<< HEAD
 from forms import GlideProfileForm, UpdateUserForm, InterestForm, CompanyForm, ProfessionForm, LocationForm, awesomeform, travelform, missionform, UpdateUserNameForm, UpdatePasswordForm, UpdateEmailForm, UploadPicForm, ChangeProfilePictureForm
 from glidewithus.marketplace.forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionForm, SearchLocationForm
 from sorl.thumbnail import get_thumbnail
 
+=======
+from forms import GlideProfileForm, UpdateUserForm, InterestForm, CompanyForm, ProfessionForm, LocationForm, awesomeform, travelform, missionform
+from glidewithus.marketplace.forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionForm, SearchLocationForm
+from sorl.thumbnail import ImageField
+>>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 
 
 # Create your views here.
@@ -30,6 +36,7 @@ def profile(request):
 			print e
 
 	elif request.user.glideprofile:
+<<<<<<< HEAD
 		interests = request.user.glideprofile.interest_set.all()
 		proffession = request.user.glideprofile.proffession_set.distinct()
 		company = request.user.glideprofile.company_set.distinct()
@@ -49,6 +56,20 @@ def profile(request):
 				pass
 		if request.POST:
 			try:
+=======
+		try:
+			interests = request.user.glideprofile.interest_set.all()
+			proffession = request.user.glideprofile.proffession_set.distinct()
+			company = request.user.glideprofile.company_set.distinct()
+			city = request.user.glideprofile.city
+			country = request.user.glideprofile.country
+			state = request.user.glideprofile.state
+			mission = request.user.glideprofile.mission_statement
+			awesome = request.user.glideprofile.why_awesome
+			traveler_pitch = request.user.glideprofile.traveler_pitch
+			forms = {'gprofileform':GlideProfileForm(), 'locationform':LocationForm(), 'searchlocationform':SearchLocationForm, 'filterbyprofessionform':filterbyprofessionForm, 'filterbycompanyform':filterbycompanyForm, 'filterbyinterestform':filterbyinterestForm, 'missionform':missionform, 'updateuserform':UpdateUserForm(), 'interestform':InterestForm(), 'companyform':CompanyForm(), 'professionform':ProfessionForm, 'awesomeform':awesomeform, 'travelform':travelform}
+			if request.POST:
+>>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 				if 'mission_statement' in request.POST:
 					print dir(request.user)
 					mission = request.user.glideprofile.mission_statement
@@ -157,9 +178,18 @@ def profile(request):
 			except Exception, e:
 				print e
 
+<<<<<<< HEAD
 	return render(request, 'profiles.jade', {'form':forms, 'interests':interests, 'profile':glideprofile, 'proffession':proffession, 'company':company, 'mission':mission, 'awesome':awesome, 'traveler_pitch': traveler_pitch, 'city':city,'state':state, 'country':country})
 	
 		
+=======
+		except Exception, e:
+			print e
+		print city
+		print awesome
+		return render(request, 'profiles.jade', {'form':forms, 'interests':interests, 'proffession':proffession, 'company':company, 'mission':mission, 'awesome':awesome, 'traveler_pitch': traveler_pitch, 'city':city,'state':state, 'country':country})
+
+>>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 
 @login_required
 def logout_view(request):

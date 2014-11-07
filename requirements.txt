@@ -9,7 +9,10 @@ django-dajax==0.9.2
 django-dajaxice==0.7
 pyjade==3.0.0
 python-memcached==1.53
+<<<<<<< HEAD
 redis==2.10.3
+=======
+>>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 simplejson==3.6.3
 six==1.8.0
 sorl-thumbnail==11.12.1b

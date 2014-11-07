@@ -25,10 +25,14 @@ class GlideProfile(models.Model):
 	istwitter_user = models.BooleanField(default = False)
 
 	def __unicode__(self):
+<<<<<<< HEAD
 		return "%s(%s)(%s)(%s)(%s)(%s)(%s)" %(self.profile.first_name, self.mission_statement, self.traveler_pitch, self.why_awesome, self.city, self.country, self.state)
 
 	def get_full_name(self):
 		return self.profile.first_name
+=======
+		return "%s(%s)(%s)(%s)(%s)(%s)(%s)" %(self.profile.first_name, self.mission_statement, self.traveler_pitch, self.why_awesome, self.city, self.country, self.state )
+>>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 
 class Proffession(models.Model):
 	user = models.ManyToManyField(GlideProfile)
