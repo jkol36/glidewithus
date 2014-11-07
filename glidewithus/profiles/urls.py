@@ -4,5 +4,5 @@ import views
 
 urlpatterns = patterns('', 
 	url(r'^', views.profile, name='profile'),
-	url(r'^interest_initial', views.interest_initial, name='signin'),
+	url(r'^removeinterest', views.removeinterest, name="removeinterest"),
 	)

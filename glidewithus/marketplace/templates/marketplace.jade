@@ -1,127 +1,328 @@
+{% load thumbnail %}
 html
 	head
 		link(rel="stylesheet", href="{{STATIC_URL}}/profiles/css/base.css")
+		link(rel="stylesheet", href="{{STATIC_URL}}css/marketplace.css")
 		link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
 		link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
 		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
 		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+		link(rel="stylesheet", href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css")
 		meta(charset="utf-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		title GlideWithUs
 
-	.nav.navbar-default(role="navigation")
-		.container-fluid
-			.navbar-header
-				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
-					span.sr-only Toggle navigation
-					span.icon-bar
-					span.icon-bar
-					span.icon-bar
+.nav.navbar-default(role="navigation")
+	.container-fluid
+		.navbar-header
+			button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
 
-				a.navbar-brand#navbrand(href="{{home}}/home")
-					img(src="{{STATIC_URL}}/landing/images/logo1.png")
-			.collapse.navbar-collapse#collapsed_nav
-				ul.nav.navbar-nav.navbar-right
-					li.dropdown
-						a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#") {{user.first_name}}
-							span.caret
-						
-						ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
-							li 
-								a(href="profile") My Profile
-							li
-								a(href="settings") Edit Settings
-							li
-								a(href="{% url 'logout' %}") Logout
-
-					li.dropdown
-						a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
-							span.caret
-						ul.dropdown-menu(role="menu", aria-labelledby="Browse")
-							li
-								a(href="#") By Interests
-							li 
-								a(href="#") By Company
-							li
-								a(href="#") By profession
-					li
-						a(href="#") Help
-	.row
-		.col-lg-4
-		.col-lg.col-lg-6(style="margin-top:1%")
+			a.navbar-brand#navbrand(href="{{home}}/home")
+				img(src="{{STATIC_URL}}/landing/images/logo1.png")
+		.collapse.navbar-collapse#collapsed_nav
+			{%if user.first_name %}
+			ul.nav.navbar-nav.navbar-right
+				li.dropdown
+					a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#") {{user.first_name}}
+						span.caret
+					
+					ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+						li
+							a(href="profile") My Profile
+						li
+							a(href="settings") Edit Settings
+						li
+							a(href="{% url 'logout' %}") Logout
+				li
+					a(href="{% url 'marketplace' %}") Home
+				li.dropdown
+					a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
+						span.caret
+					ul.dropdown-menu(role="menu", aria-labelledby="Browse")
+						li
+							a(href="#SearchByInterest", data-toggle="modal", data-target="#SearchByInterest") By Interests
+						li 
+							a(href="#SearchByCompany", data-toggle="modal", data-target="#SearchByCompany") By Company
+						li
+							a(href="#SearchByProfession", data-toggle="modal", data-target="#SearchByProfession") By profession
+						li 
+							a(href="#SearchByLocation", data-toggle="modal", data-target="#SearchByLocation") By Location
+				li
+					a(href="#") Help
 			
-			form.form-inline(role="form", method="POST", action="{url 'marketplace' %}")
-				.form-group
-					{%csrf_token%}
-					input.form-control(type="text", id="Location", placeholder="Where are you going?",)
-				.form-group
-					{%csrf_token%}
-					input.form-control(type="text", placeholder="Arrival Date")
-				.form-group
-					{%csrf_token%}
-					input.form-control(type="text", placeholder="Departure Date")
-				button.btn.btn-success(type="submit", value="submit") Search
-			
+			{%endif%}
 
-						
-	.row(style="margin-left:1%;")			
-		.col-sm.col-lg-4(style="margin-top:1%;")
-			.panel-group#Filter
-				.panel.panel-default
-					.panel-heading 
-						h4.panel-title
-							a(data-toggle="collapse", data-parent="#Filter", href="#filter") Filter
-					.panel-collapse.collapse.in#filter
-						.panel-body
-							.panel-group#accordion
-								.panel.panel-default
-									.panel-heading 
-										h4.panel-title
-											a(data-toggle="collapse", data-parent="accordion", href="#collapse_interests") By interests
-									.panel-collapse.collapse.out#collapse_interests
-										.panel-body#interestform
-											h1(style="font-size:1.2em;") Current Interests
-											{% for interest in interests %}
-											
-											{{interest}}
-											{%endfor%}
-											
-							.panel-group#accordion
-								.panel.panel-default
-									.panel-heading
-										h4.panel-title
-											a(data-toggle="collapse", data-parent="#accordion", href="#collapse_company") By Company
-									.panel-collapse.collapse.out#collapse_company
-										.panel-body
-											h1(style="font-size:1em;") Current Companies
-											{% for company in companies %}
-											
-											{{company}}
-											{%endfor%}
+// generate a model for each user in results
+
+{% for item1, item2 in results %}
+.modal.fade(id="{{item1.profile.first_name}}_{{item1.profile.last_name}}")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="True")&times;
+					span.sr-only close
+				h4.modal-title {{item1.profile.firstname}}
+			.modal-body
+				h2 {{item1.mission_statement}}
+
+.modal.fade(id="{{item2.profile.first_name}}{{item2.profile.last_name}}")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only close
+				h4.modal-title {{item2.profile.firstname}}
+			.modal-body
+				h2 {{item2.mission_statement}}
+{%endfor%}
+.modal.fade#SearchByLocation(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="#BrowseByLocation")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only close
+				h4.modal-title Find people by location
+			.modal-body
+				form(role="form", href="{% url 'marketplace' %}", action="{% url 'marketplace' %}", method="POST")
+					.form-group
+						{%csrf_token%}
+						{{form.searchlocationform}}
+					button.btn.btn-success(type="submit", value="submit") Search
+.modal.fade#SearchByInterest(tabindex="-1", role="dialog", aria-labelledby="#BrowseInterests", aria-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only close
+				h4.modal-title#S_Interest Find people who are interested in...
+			.modal-body
+				form(role="form", action="{% url 'marketplace' %}")
+					.form-group
+						{%csrf_token%}
+						{{form.filterbyinterestform}}
+					button.btn.btn-success(type="submit", value="submit") Go
+.modal.fade#SearchByCompany(tabindex='-1', role="dialog", aria-labelledby="#BrowseByCompany", aria-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only close
+				h4.modal-title Find people who work for a speciic company
+			.modal-body
+				form(role="form", action="{% url 'marketplace' %}")
+					.form-group
+						{%csrf_token%}
+						{{form.filterbycompanyform}}
+					button.btn.btn-success(type="submit", value="submit") Go
+.modal.fade#SearchByProfession(tabindex='-1', role="dialog", aria-labelledby="#BrowseByProfession", aria-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only close
+				h4.modal-title Find people who have a certain profession
+			.modal-body
+				form(role="form", action="{% url 'marketplace' %}")
+					.form-group
+						{%csrf_token%}
+						{{form.filterbyprofessionform}}
+					button.btn.btn-success(type="submit", value="submit") Go
 
 
-							.panel-group#accordion
-								.panel.panel-default
-									.panel-heading
-										h4.panel-title
-											a(data-toggle="collapse", data-parent="#accordion", href="#collapse_profession") By Profession
-									.panel-collapse.collapse.out#collapse_profession
-										.panel-body
-											{% for profession in professions %}
-		
-											{{profession}}
-											{%endfor%}
-								button.btn.btn-success(role="button", type="submit", style="margin-top:5px; margin-right:0, margin-left:auto;", value="submit") Apply Filters
-		.col-sm.col-lg-7(style="margin-top:1%;")
-			.panel.panel-default
-				.panel-heading Results
-
+.modal.fade#send_message(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="send_message")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				h4.modal-title Send 
+.modal.fade#meetupmodal(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="meetupmodal")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				button.close(type="button", data-dismiss="modal")
+					span(aria-hidden="true")&times;
+					span.sr-only close
+				h4.modal-title You're seconds away from an awesome experience!
 	
+			.modal-body
+				form(role="form", method="POST", action="{% url 'marketplace' %}")
+					.form-group
+						{%csrf_token %}
+						input(type="hidden", class="meet", value="", name="send_to")
+						input(type="hidden", name="send_meetup_request", value="send_meetup_request")
+						{{form.meetup_form}}
+						input(type="text", class="form-control", name="date", placeholder="select a date", id="datepicker")
+					button(type="submit", value="submit") Go
+
+
+.container-fluid
+	.row.secondnav
+		.navbar.navbar-default(style='background:#C0C0C0;')
+			.col-md-4
+			.col-md-4
+				form(role="form", method="POST", action="{%url 'marketplace' %}")
+					.form-group
+						{%csrf_token%}
+						input.form-control(type="text", name="location", style="margin-top:10px;", placeholder="Where are you going?") 
+					button.btn.btn-success#search(type="submit", value="submit", style="margin-top:10px;") Search
+			.col-md-2(style="margin-left:100px;")
+				form(role="form", method="POST", action="{%url 'marketplace' %}")
+					.form-group(style="display:none;")
+						{%csrf_token%}
+						input(type="hidden", value="view all", name="view all")
+					button.btn.btn-danger(type="submit", style="margin-top:10px;", value="submit") View All
+.row
+		.col-md-4
+			.panel.panel-default
+				.panel-heading
+					h4.panel-title(style="text-align:center;") Messages
+				.panel-body
+					{%if sender %}
+					{% for request in sender %}
+					p New meetup request from {{request}}!
+					{%endfor %}
+					{%endif %}
+					{%if not sender %}
+					p meetup requests will apear here!
+					{%endif %}
+
+		.col-md-8
+			.panel.panel-default
+				.panel-heading
+					h4.panel-title(style="text-align:center;") Results 
+				.panel-body
+					{% for item1, item2 in results %}
+					{%if item1.profile_pic %}
+					{%if item2.profile_pic %}
+					{%thumbnail item1.profile_pic "900x500" crop="center" as image %}
+					.row
+						.col-md-8
+							.thumbnail
+								img.rounded(src="{{image.url}}", width="{{image.width}}", height="{{image.height}}")
+								{%endthumbnail%}
+
+								.caption_1
+									{%thumbnail item1.profile_pic "150x150" crop="center" as im %}
+									img.img-circle(src="{{im.url}}", style="float:left;", width="{{im.width}}", height="{{im.height}}")
+									{%endthumbnail%}
+									p.primary(style="font-size:1.8em;") {{item1.profile.first_name}} {{item1.profile.last_name}}
+									p.primary about {{item1.profile.first_name}}
+									p.secondary {{item1.mission_statement}}
+									p.secondary {{item1.traveler_pitch}}
+									.btn-group.dropup
+										button.btn.btn-success.dropdown-toggle(data-toggle="dropdown",style="width:215px; margin-left:143px;") Meet {{item1.profile.first_name}}
+											span.caret
+										ul.dropdown-menu(style="margin-left:143px; z-index=4;")
+											li
+												a(href="#meetupmodal", class="get_beer", value="{{item1.profile.first_name}}", data-target="#meetupmodal", id="{{item1.profile.username}}", data-toggle="modal") Get a beer with {{item1.profile.first_name}}
+											li 
+												a(href="#meetupmodal", class="get_coffee", value="{{item1.profile.first_name}}", data-target="#meetupmodal", id="{{item1.profile.username}}", data-toggle="modal") Get Coffee with {{item1.profile.first_name}}
+											li
+												a(href="#meetupmodal", class="send_message", value="{{item1.profile.first_name}}", data-target="#meetupmodal", id="{{item1.profile.username}}", data-toggle="modal") Send {{item1.profile.first_name}} a message
+												
+
+						.col-md-4
+							.thumbnail
+								{% thumbnail item2.profile_pic "500x600" crop="center" as im%}
+								img(src="{{im.url}}", width="{{im.width}}", height="{{im.height}}")
+								{%endthumbnail%}
+								.caption_1
+									{%thumbnail item2.profile_pic "75x75" crop="center" as im%}
+									img(src="{{im.url}}", width="{{im.width}}", height="{{im.height}}")
+									{%endthumbnail%}
+									p.primary(style="font-size:1.8em;") {{item2.profile.first_name}} {{item2.profile.last_name}}
+									p.primary(style="font-weight:bold;") About {{item2.profile.first_name}}
+									p.secondary(style="text-align:center;") {{item2.mission_statement}}
+									.btn-group.dropup
+										button.btn.btn-success.dropdown-toggle(data-toggle="dropdown") Meet {{item2.profile.first_name}}
+											span.caret
+										ul.dropdown-menu
+											li
+												a(href="#meetupmodal", data-target="#meetupmodal", class="get_beer", id="{{item2.profile.username}}", value="{{item2.profile.first_name}}", data-toggle="modal") Get a beer with {{item2.profile.first_name}}
+											li
+												a(href="#meetupmodal", data-target="#meetupmodal", class="get_coffee", id="{{item2.profile.username}}", value="{{item2.profile.first_name}}", data-toggle="modal") Get coffee with {{item2.profile.first_name}}
+												
+											li
+												a(href="#meetupmodal", data-target="#meetupmodal", class="send_message", id="{{item2.profile.username}}", value="{{item2.profile.first_name}}", data-toggle="modal") Send {{item2.profile.first_name}} a message
+									
+					{%endif%}
+					{%endif%}
+					{%endfor%}
+									
+
+			
+				
+				
 
 
 
 
+
+
+
+
+
+				
+	
+		
+
+
+
+
+					
+										
 script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
 script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
-script(src="{{STATIC_URL}}/profiles/js/holder.js")			
+script(src="{{STATIC_URL}}/profiles/js/holder.js")
+script(src="http://code.jquery.com/ui/1.11.2/jquery-ui.js")
+script(type="text/javascript")
+		$('.thumbnail').hover(function() {
+			$(this).addClass('opacity');
+			$(this).find('.caption_1').fadeIn(250);
+			},
+			function() {
+				$(this).removeClass('opacity');
+				$(this).find('.caption_1').fadeOut(250);
+				});
+
+script(type="text/javascript")
+		$(document).ready(function() {
+			$('.get_beer').click(function() {
+				instance = $(this).attr('id')
+				name = $(this).attr('value')
+				console.log(name)
+				modal_title = $('#meetupmodal').find('.modal-title')
+				modal_title.html("Your seconds away from getting beer with " + name + '.')
+				send_to = $('#meetupmodal').find('.meet')
+				new_send_to = send_to.attr('value', instance)
+				})
+			$('.get_coffee').click(function() {
+				instance = $(this).attr('id')
+				name = $(this).attr('value')
+				modal_title = $('#meetupmodal').find('.modal-title')
+				modal_title.html("You are seconds away from getting coffee with " + name)
+				send_to = $('#meetupmodal').find('.meet')
+				new_send_to = send_to.attr('value', instance)
+				})
+			$('.send_message').click(function() {
+				instance = $(this).attr('id')
+				name = $(this).attr('value')
+				modal_title = $('#meetupmodal').find('.modal-title')
+				modal_title.html("Send " + name +" a message!")
+				send_to = $('#meetupmodal').find('.meet')
+				new_send_to = send_to.attr('value', instance)
+				})
+			$('#meetupmodal').find("#datepicker").datepicker();
+			})
+
+		

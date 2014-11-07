@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User, AnonymousUser
+import json
+from django_ajax.decorators import ajax
+from django.contrib.auth import authenticate
+from django.contrib.auth.models import User, AnonymousUser 
 from django.contrib.auth import logout
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -7,8 +10,10 @@ from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 from models import GlideProfile, Interest, Proffession, Company
-from forms import GlideProfileForm, UpdateUserForm, InterestForm, CompanyForm, ProfessionForm, LocationForm, awesomeform, travelform, missionform
-from sorl.thumbnail import ImageField
+from forms import GlideProfileForm, UpdateUserForm, InterestForm, CompanyForm, ProfessionForm, LocationForm, awesomeform, travelform, missionform, UpdateUserNameForm, UpdatePasswordForm, UpdateEmailForm, UploadPicForm, ChangeProfilePictureForm
+from glidewithus.marketplace.forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionForm, SearchLocationForm
+from sorl.thumbnail import get_thumbnail
+
 
 
 # Create your views here.
@@ -25,18 +30,25 @@ def profile(request):
 			print e
 
 	elif request.user.glideprofile:
-		try:
-			interests = request.user.glideprofile.interest_set.all()
-			proffession = request.user.glideprofile.proffession_set.distinct()
-			company = request.user.glideprofile.company_set.distinct()
-			city = request.user.glideprofile.city
-			country = request.user.glideprofile.country
-			state = request.user.glideprofile.state
-			mission = request.user.glideprofile.mission_statement
-			awesome = request.user.glideprofile.why_awesome
-			traveler_pitch = request.user.glideprofile.traveler_pitch
-			forms = {'gprofileform':GlideProfileForm(), 'locationform':LocationForm(), 'missionform':missionform, 'updateuserform':UpdateUserForm(), 'interestform':InterestForm(), 'companyform':CompanyForm(), 'professionform':ProfessionForm, 'awesomeform':awesomeform, 'travelform':travelform}
-			if request.POST:
+		interests = request.user.glideprofile.interest_set.all()
+		proffession = request.user.glideprofile.proffession_set.distinct()
+		company = request.user.glideprofile.company_set.distinct()
+		city = request.user.glideprofile.city
+		country = request.user.glideprofile.country
+		state = request.user.glideprofile.state
+		mission = request.user.glideprofile.mission_statement
+		awesome = request.user.glideprofile.why_awesome
+		traveler_pitch = request.user.glideprofile.traveler_pitch
+		glideprofile = request.user.glideprofile
+		forms = {'gprofileform':GlideProfileForm(), 'updateusername':UpdateUserForm, 'changepropic':ChangeProfilePictureForm, 'propic_form':UploadPicForm, 'locationform':LocationForm(), 'searchlocationform':SearchLocationForm, 'filterbyprofessionform':filterbyprofessionForm, 'filterbycompanyform':filterbycompanyForm, 'filterbyinterestform':filterbyinterestForm, 'missionform':missionform, 'updateuserform':UpdateUserForm(), 'interestform':InterestForm(), 'companyform':CompanyForm(), 'professionform':ProfessionForm, 'awesomeform':awesomeform, 'travelform':travelform}
+		if request.method=='GET':
+			try:
+				interest_id = request.GET['interest']
+				print "interest id %d" %interest_id
+			except Exception, e:
+				pass
+		if request.POST:
+			try:
 				if 'mission_statement' in request.POST:
 					print dir(request.user)
 					mission = request.user.glideprofile.mission_statement
@@ -136,21 +148,92 @@ def profile(request):
 						request.user.glideprofile.mission_statement = mission
 						form.save()
 						return redirect('profile')
+				elif 'profile_pic' in request.FILES:
+					form = UploadPicForm(request.POST, request.FILES)
+					if form.is_valid():
+						profile = request.user.glideprofile
+						profile.profile_pic = request.FILES['profile_pic']
+						profile.save()
+			except Exception, e:
+				print e
 
-		except Exception, e:
-			return e
-		print city
-		print awesome
-		return render(request, 'profiles.jade', {'form':forms, 'interests':interests, 'proffession':proffession, 'company':company, 'mission':mission, 'awesome':awesome, 'traveler_pitch': traveler_pitch, 'city':city,'state':state, 'country':country})
+	return render(request, 'profiles.jade', {'form':forms, 'interests':interests, 'profile':glideprofile, 'proffession':proffession, 'company':company, 'mission':mission, 'awesome':awesome, 'traveler_pitch': traveler_pitch, 'city':city,'state':state, 'country':country})
+	
+		
 
-
+@login_required
 def logout_view(request):
 	logout(request)
 	return redirect('landing')
 	
+@login_required
+def settings(request):
+	username = request.user.username
+	email = request.user.email
+	forms = {'updateusername':UpdateUserNameForm(), 'updatepassword':UpdatePasswordForm(), 'updatemail':UpdateEmailForm()}
+	if 'new_username' in request.POST:
+		form = UpdateUserNameForm(data = request.POST, instance=request.user)
+		if form.is_valid():
+			try:
+				username = form.cleaned_data['new_username']
+				request.user.username=username
+				form.save() 
+			except Exception, e:
+				print e
+		else:
+			print "form has errors"
+	elif 'new_password' in request.POST:
+		form = UpdatePasswordForm(data = request.POST, instance = request.user)
+		if form.is_valid():
+			try:
+				user = authenticate(username=request.user.username, password=form.cleaned_data['old_password'])
+				if user is not None:
+					print "authenticated"
+					try:
+						new_password = form.cleaned_data['new_password']
+						print new_password
+						new_password_again = form.cleaned_data['new_password_again']
+						print new_password_again
+						if new_password == new_password_again:
+							np = new_password
+							user = request.user.set_password(np)
+							user.save()
+							form.save()
+						return 
+					except Exception, e:
+						print e
+				else:
+					print "You entered the wrong password for your account"
+			except Exception, e:
+				print e
+		else:
+			print "form is invalid"
+	elif 'new_email' in request.POST:
+		print request.POST
+		form = UpdateEmailForm(data = request.POST, instance = request.user)
+		if form.is_valid():
+			try:
+				new_email = form.cleaned_data['new_email']
+				if new_email != request.user.email:
+					request.user.email = new_email
+					form.save()
+				else:
+					print "That's already your email"
+			except Exception, e:
+				print e
+		else:
+			print form.errors
 
-def interest_initial(request):
-	pass
+
+
+
+
+	return render(request, 'settings.jade', {'username': username, 'email':email, 'form':forms})
+
+@login_required
+@ajax
+def removeinterest(request):
+	return {'result':'hello!'}
 
 		
 

@@ -1,3 +1,30 @@
+
+/* Defining font color scheme for paragraphs and headings */
+p.primary {
+  padding-top:40px;
+  color:#6E7A86;
+  font-size:1.8em;
+  font-family:'Oxygen';
+  text-align: center;
+}
+
+p.secondary {
+  padding-top:40px;
+  color:#76899A !important;
+  font-size:1.2em !important;
+  font-family:'Oxygen' !important;
+  text-align:center !important;
+}
+
+h1.primary {
+  padding-top:40px;
+  color:#304252 !important;
+  font-family: "Josefin Slab", "Sans-Serif" !important;
+  font-size: 3.8em !important;
+  text-align:center !important;
+}
+
+/* end of font/heading color schemes */ 
 #navbrand {
 	padding-top: 0;
 	height: 70px;
@@ -23,9 +50,11 @@ body {
   clear:both;
   padding-top:20px;
 } 
-
+.row {
+  margin-top:30px;
+}
 .bg {
-	background:url('../images/background.jpg') no-repeat center center;
+	background:url('../images/Background.jpg') no-repeat center center;
 	overflow: hidden;
 	position:fixed;
 	width: 100%;
@@ -76,25 +105,24 @@ body {
 
 }
 
-.container-fluid#section2 {
-	background:#fff !important;
-	height: 350px;
+.container-fluid#section2, .container-fluid#section3 {
+	padding-top:50px;
+	height: 680px;
 	text-align: center;
 
 }
-.container-fluid#section2 h1 {
-	font-family: "Josefin Slab", "Sans-Serif";
-	font-size: 3.8em;
+.bgdarker {
+  background-color: #F9F9F9;
+}
+.bg-lighter {
+  background-color: #fff;
 }
 
-.container-fluid#section2 p {
-	font-family: 'Oxygen';
-	font-size: 1.8em;
-}
 
 .container-fluid#section2 button#agree {
 	background: #56B156;
 	border-color: #7CC64A;
+  width:100%;
 	border-radius: 4px solid;
 }
 
@@ -442,16 +470,21 @@ body {
 	.bg {
 		height: 350px !important;
 	}
+  body {
+    font-size:1.2em;
+  }
+  
 	.jumbotron#backgroundimage {
-		height: 350px !important;
+		height: 250px !important;
 	}
+  
 
 	.jumbotron#backgroundimage > h1 {
 	font-family: 'Josefin Slab', 'Sans-Serif';
 	text-align: center;
 	width:50%;
 	margin-left: 25%;
-	font-size: 1.8em;
+	font-size: 1.1em;
 	padding-top: 1.5%;
 	}
 

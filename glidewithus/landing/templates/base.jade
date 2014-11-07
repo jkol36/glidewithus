@@ -1,6 +1,7 @@
  
 -load staticfiles
 
+
 head
 	link(rel="stylesheet", href="{{STATIC_URL}}landing/css/base.css")
 	link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
@@ -8,6 +9,7 @@ head
 	link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
 	link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
 	link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+	link(href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css", rel="stylesheet")
 	meta(charset="utf-8")
 	meta(name="viewport", content="width=device-width, initial-scale=1")
 	title GlideWithUs
@@ -28,7 +30,7 @@ head
 					li
 						a(href="#Invite", data-toggle="modal", data-target="#Registration") Login
 					li 
-						a(href="#Invite", data-toggle="modal", data-target="#Registration") Sign Up
+						a(href="{% url 'signup' %}") Sign Up
 
 .modal.fade#Registration(tabindex="-1", role="dialog", aria-labelledby="#Invite", ara-hidden="true")
 	.modal-dialog
@@ -37,34 +39,19 @@ head
 				button.close(type="button", data-dismiss="modal")
 					span(aria-hidden="true")&times;
 					span.sr-only Close
-				h4.modal-title#register You are almost there!
+				h4.modal-title login
 			.modal-body
-				ul.nav.nav-tabs(role="tablist")
-					li.active
-						a(href="#requestinvite", data-toggle="tab") Request an Invite
-					li
-						a(href="#Login", data-toggle="tab") Login
-				.tab-content
-					.tab-pane.fade.in.active#requestinvite
-						form(role="form", action="{% url 'landing' %}", method="POST")
-							.form-group
-								{%csrf_token%}
-								{{ form }}
-							button.btn.btn-success(type="submit", value="submit", method="POST") Request an Invite
-							
+				form(action="{% url 'login' %}", type="submit", method="POST")
+					.form-group
+						{%csrf_token%}
+						label(for="username") username
+						input.form-control#login-username(type="username", name="username", placeholder="username")
+					.form-group
+						label(for="password") Password
+						input.form-control#login-password(type="password", name= "password", placeholder="password")
 
-					.tab-pane#Login 
-						form(action="{% url 'login' %}", type="submit", method="POST")
-							.form-group
-								{%csrf_token%}
-								label(for="username") username
-								input.form-control#login-username(type="username", name="username", placeholder="username")
-							.form-group
-								label(for="password") Password
-								input.form-control#login-password(type="password", name= "password", placeholder="password")
-	
 
-							button.btn.btn-success(type="submit", value="submit") Login 
+					button.btn.btn-success(type="submit", value="submit") Login 
 
 
 	

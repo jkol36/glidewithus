@@ -10,7 +10,7 @@ form(role="form", action="{%url 'login' %}", method="POST")
 	button.btn.btn-success(type="submit", value="submit") Login
 {%endif%}
 {%if AnonymousUser %}
-form(role="form", action="{% url 'signup' %}", method="POST")
+form(role="form", style="height:50px;", action="{% url 'signup' %}", method="POST")
 	.form-group(style="width:50%; margin-left:25%;")
 		{%csrf_token%}
 		{{ user_form }}

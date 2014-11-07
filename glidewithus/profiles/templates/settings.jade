@@ -1,0 +1,126 @@
+
+html
+	head
+		link(rel="stylesheet", href="{{STATIC_URL}}/profiles/css/base.css")
+		link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
+		link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Josefin+Slab:300,400,300italic|Oxygen")
+		link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Raleway")
+		meta(charset="utf-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		title GlideWithUs
+
+.nav.navbar-default(role="navigation")
+	.container-fluid
+		.navbar-header
+			button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
+				span.sr-only Toggle navigation
+				span.icon-bar
+				span.icon-bar
+				span.icon-bar
+
+			a.navbar-brand#navbrand(href="{{home}}/home")
+				img(src="{{STATIC_URL}}/landing/images/logo1.png")
+		.collapse.navbar-collapse#collapsed_nav
+			{%if user.first_name %}
+			ul.nav.navbar-nav.navbar-right
+				li.dropdown
+					a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#dlabel") {{user.first_name}}
+						span.caret
+					
+					ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
+						li
+							a(href="profile") My Profile
+						li
+							a(href="settings") Edit Settings
+						li
+							a(href="{% url 'logout' %}") Logout
+
+				li.dropdown
+					a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
+						span.caret
+					ul.dropdown-menu(role="menu", aria-labelledby="Browse")
+						li
+							a(href="#SearchByInterest", data-toggle="modal", data-target="#SearchByInterest") By Interests
+						li 
+							a(href="#SearchByCompany", data-toggle="modal", data-target="#SearchByCompany") By Company
+						li
+							a(href="#SearchByProfession", data-toggle="modal", data-target="#SearchByProfession") By profession
+						li 
+							a(href="#SearchByLocation", data-toggle="modal", data-target="#SearchByLocation") By Location
+				li
+					a(href="#") Help
+			
+			{%endif%}
+.modal.fade#changeusername(tabindex="-1", role="modal", aria-labelledby="#changeusername", aria-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				h4.modal-title Change your Username
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+			.modal-body
+				form(role="form", method="POST", action="{% url 'settings' %}")
+					.form-group
+						{%csrf_token %}
+						{{form.updateusername}}
+					button.btn.btn-success(type="submit", value="submit") Update Username
+
+.modal.fade#changemail(tab-index='-1', role="modal", aria-labelledby="#changemail", aria-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				h4.modal-title Change your Email
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+			.modal-body
+				form(role="form", method="POST", action="{% url 'settings' %}")
+					.form-group
+					{%csrf_token%}
+					{{form.updatemail}}
+				button.btn.btn-success(type="submit", value="submit") Change Email
+.modal.fade#updatepassword(tab-index='-1', aria-labelledby="#updatepassword", aria-hidden="true")
+	.modal-dialog
+		.modal-content
+			.modal-header
+				h4.modal-title Update your password
+					button.close(type="button", data-dismiss="modal")
+						span(aria-hidden="true")&times;
+						span.sr-only close
+			.modal-body
+				form(role="form", action="{% url 'settings' %}", method="POST")
+					.form-group
+						{%csrf_token%}
+						{{form.updatepassword}}
+					button.btn.btn-success(type="submit", value="submit") Change Password
+
+
+
+.col.col-md-4
+.col.col-md-4(style="margin-top:10px")
+	.row
+		.panel.panel-default
+			.panel-heading Edit Settings
+			.panel-body
+				p your current username: {{username}}
+					span(style="padding-left:10px;")
+						a(href="#changeusername", data-toggle="modal", data-target="#changeusername") Edit
+				p your current email: {{email}}
+					span(style="padding-left:10px;")
+						a(href="#updatemail", data-toggle="modal", data-target="#changemail") Change
+				p Change your Password
+					span(style="padding-left:10px;")
+						a(href="#updatepassword", data-toggle="modal", data-target="#updatepassword") Change
+				button.btn.btn-success(role="button", onclick="Dajaxice.glidewithus.profiles.sayhello(myfunction)") text
+
+
+script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
+script(src="{{STATIC_URL}}/profiles/js/holder.js")
+script(type="text/javascript")
+	function myfunction(data) {
+	alert(data.message);
+	}						

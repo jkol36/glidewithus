@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 from sorl.thumbnail import ImageField
 from glidewithus.profiles.countries import COUNTRIES
 from glidewithus.profiles.states import STATES
+from sorl.thumbnail import ImageField
 
 # Create your models here.
 
 class GlideProfile(models.Model):
 	profile = models.OneToOneField(User, unique = True)
 	traveler_pitch = models.CharField(max_length=250, blank = True, null = True, default = None)
+	profile_pic = ImageField(upload_to="images/profile_pics", default = None, null = True, blank = True) 
 	why_awesome = models.CharField(max_length = 250, blank = True, null = True, default = None)
 	mission_statement = models.CharField(max_length = 250, null=True, blank = True, default = None)
 	country = models.CharField(max_length=2, choices=COUNTRIES, blank=True, null=True)
@@ -23,7 +25,10 @@ class GlideProfile(models.Model):
 	istwitter_user = models.BooleanField(default = False)
 
 	def __unicode__(self):
-		return "%s(%s)(%s)(%s)" %(self.profile.first_name, self.mission_statement, self.traveler_pitch, self.why_awesome )
+		return "%s(%s)(%s)(%s)(%s)(%s)(%s)" %(self.profile.first_name, self.mission_statement, self.traveler_pitch, self.why_awesome, self.city, self.country, self.state)
+
+	def get_full_name(self):
+		return self.profile.first_name
 
 class Proffession(models.Model):
 	user = models.ManyToManyField(GlideProfile)

@@ -20,10 +20,14 @@ def landing(request):
 			new_registration.save()
 			return HttpResponse("Thank You. We'll be in touch.")
 	
+	elif not request.user.is_anonymous():
+		return redirect('profile')
 	registration_form = RequestInviteForm()
 	return render(request, 'landing.jade', {'form':registration_form})
-def home(request, registration_form):
-	return render(request, 'landing.jade')
+def home(request):
+	if request.user.is_anonymous():
+		return redirect('login')
+	return redirect('profile')
 def signup(request):
 	print request.user
 	if request.POST:

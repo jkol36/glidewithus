@@ -498,3 +498,14 @@ label#id_select_interest {
 		
 }
 
+.panel-heading {
+  background-image:none !important;
+}
+.btn {
+  background-image: none !important;
+}
+
+.displaynone {
+  display:none !important;
+}
+

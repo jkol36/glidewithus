@@ -1,13 +1,15 @@
 from django.contrib import admin
 from locations.models import City
 from models import GlideProfile, Interest, Company, Proffession
+from sorl.thumbnail.admin import AdminImageMixin
 
 
 
 
-class GlideProfileAdmin(admin.ModelAdmin):
-	fields = ['mission_statement', 'profile', 'state', 'country', 'age']
-	list_display  = ['mission_statement', 'profile', 'age','country', 'state','has_profile_pic','isfacebook_user', 'istwitter_user', 'why_awesome', 'traveler_pitch']
+
+class GlideProfileAdmin(AdminImageMixin, admin.ModelAdmin):
+	fields = ['mission_statement', 'profile',  'state', 'country', 'age', 'profile_pic' ]
+	list_display  = ['mission_statement', 'profile', 'profile_pic', 'city', 'age','country', 'state','has_profile_pic','isfacebook_user', 'istwitter_user', 'why_awesome', 'traveler_pitch']
 class CityAdmin(admin.ModelAdmin):
 	fields = ['name', 'country', 'state', 'has_local', 'total_locals']
 	list_display = ['name', 'country', 'has_local', 'total_locals']
@@ -23,6 +25,7 @@ class CompanyAdmin(admin.ModelAdmin):
 class ProfessionAdmin(admin.ModelAdmin):
 	fields = ['name', 'user']
 	list_display = ['name']
+
 
 
 admin.site.register(Proffession, ProfessionAdmin)

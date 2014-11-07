@@ -1,0 +1,100 @@
+#purchasecoffee {
+	font-size:0.8em;
+}
+p {
+	text-align: center;
+}
+
+.btn {
+	font-family:'Raleway';
+}
+#results a {
+	text-decoration: none;
+	font-size:1.3em;
+}
+#results p {
+	font-size: 1.1em;
+}
+.thumbnail {
+    position:relative;
+    overflow:hidden;
+}
+.opacity {
+	opacity:0.8;
+}
+.caption {
+	position:absolute;
+	top: 0;
+	left:0;
+
+
+}
+.caption a {
+	text-decoration: none;
+	color: #fff;
+	font-family:'Oxygen';
+	z-index: 1;
+}
+.caption_1 {
+	position:absolute;
+    top:0;
+    right:0;
+    background:white;
+    width:100%;
+    height:100%;
+    padding:2%;
+    display: none;
+    text-align:center;
+    color: black !important;
+    z-index:2;
+
+}
+#results .row {
+	padding-top:1%;
+	padding-bottom:1%;
+	margin-top:1%;
+	margin-bottom: 1%;
+}
+
+#LocationSearch {
+	width:75%;
+}
+
+#search {
+	margin-top:-48px !important;
+	float: right;
+	margin-right:-100px !important;
+}
+#LocationSearch > input {
+	width:100%;
+}
+.btn-primary {
+	background-image: none !important;
+}
+.btn.btn-success {
+	background-image:none !important;
+}
+.panel-heading {
+	background-image: none !important;
+}
+.btn.btn-danger {
+	font-family:"Raleway";
+	background-color:#FCA2C5 !important;
+	border-color: #FCA2C5;
+}
+.btn.btn-danger:hover {
+	color:#fff;
+	border-color:#FCA2C5;
+}
+.filterbarhidden {
+	display:none;
+}
+.filterbarshow {
+	background-color:#ddd;
+}
+
+.btn.displaynone {
+	display:none;
+}
+
+

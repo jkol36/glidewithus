@@ -36,12 +36,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_ajax',
+    'sorl.thumbnail',
     'glidewithus.landing',
     'glidewithus.profiles',
     'glidewithus.landing.registration',
     'glidewithus.dashboard',
     'glidewithus.marketplace',
+    'glidewithus.feed',
+    'glidewithus.booking',
+    'django_ajax',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -69,6 +72,13 @@ DATABASES = {
     }
 }
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '104.131.24.235:8000',
+    }
+}
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
@@ -88,6 +98,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 Landing  = '/templates/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "/uploads/")
+MEDIA_URL = '/uploads/'
 SOUTH_MIGRATION_MODULES = {
     'cities_light': 'cities_light.south_migrations',
 }
@@ -101,7 +113,25 @@ TEMPLATE_LOADERS = (
     ('pyjade.ext.django.Loader', (
     'django.template.loaders.filesystem.Loader', 
     'django.template.loaders.app_directories.Loader',)),
+    'django.template.loaders.eggs.Loader',
     )
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'dajaxice.finders.DajaxiceFinder',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages'
+)
+
 
 
 

@@ -3,14 +3,37 @@ extends base
 
 -block content_section_1
 h1 Find and connect with likeminded individuals
-button.btn.btn-primary(href="#Invite", data-toggle="modal", data-target="#Registration") REQUEST AN INVITE
+button.btn.btn-primary
+	a(href="{% url 'signup' %}", style="color:black;") Join our Beta!
 -endblock content_section_1
 
 -block section2
-.container-fluid#section2
-	.content(style="width:50%; margin-left:25%;")
-		h1.text-danger What's going on here?
-		p.text-primary We believe that connecting people can change the world, or atleast on a smaller scale, their lives.
-		button.btn.btn-success#agree(href="#Invite", data-target="#Registration", data-toggle='modal') I agree
-		button.btn.btn-danger#disagree I don't Agree
+.container-fluid#section3(class="bgdarker")
+	.col-xs-12.col-lg-12
+		.row 
+			h1.primary What is GlideWithUs?
+			p.primary GlideWithUs is a platform where people can find like-minded individuals to connect with. <br> We exist to facilitate awesome Face to Face social interaction. 
+		.row 
+			.col-md-4
+				i.fa.fa-beer.fa-5x
+				p.primary Meetup for a beer...
+			.col-md-4 
+				i.fa.fa-coffee.fa-5x
+				p.primary or a coffee...
+			.col-md-4
+				i.fa.fa-thumbs-up.fa-5x
+				p.primary or litterally anything else.
+		.row	
+			.col-md-12
+				i.fa.fa-users.fa-5x
+				p.primary if you're traveling you can even use our platform to find a local who can show you an awesome time.
+
 -endblock section2
+-block section3
+.container-fluid#section2(class="bg-lighter")
+	.content(style="width:50%; margin-left:25%;")
+		h1.primary At our core...
+		p.primary We believe that connecting people can change the world, or atleast on a smaller scale, their lives.
+		button.btn.btn-success#agree(href="{% url 'signup' %}")
+			a(href="{% url 'signup' %}", style="color:white;") I agree
+-endblock section3
