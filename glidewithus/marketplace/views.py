@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-=======
-from django.shortcuts import render
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 from glidewithus.profiles.models import GlideProfile
 from forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionForm, SearchLocationForm
 from glidewithus.booking.forms import sendmeetrequestForm
@@ -16,7 +12,6 @@ def marketplace(request):
 	interests = request.user.glideprofile.interest_set.all()
 	professions = request.user.glideprofile.proffession_set.all()
 	companies = request.user.glideprofile.company_set.all()
-<<<<<<< HEAD
 	meetup_request = meetuprequest(target_recipient=request.user.glideprofile)
 	senders = []
 	recipient = meetup_request.get_recipient()
@@ -53,17 +48,11 @@ def marketplace(request):
 		if request.POST:
 			senders = []
 
-=======
-	forms = {'company_form':filterbycompanyForm, 'profession_form':filterbyprofessionForm, 'searchlocation':SearchLocationForm, 'search_interest':filterbyinterestForm}
-	if interests:
-		if request.POST:
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 			if 'location' in request.POST:
 				location = request.POST['location']
 				result_count = len(GlideProfile.objects.filter(city=location))
 				matches = GlideProfile.objects.filter(city=location)
 				results = []
-<<<<<<< HEAD
 				results_list_one = []
 				results_list_two = []
 				companies = []
@@ -78,11 +67,6 @@ def marketplace(request):
 				list = zip(results_list_one, results_list_two)
 				return render(request, 'marketplace.jade', {'results': list, 'form':forms})
 
-=======
-				for i in matches:
-					results.append(i)
-				return render(request, 'marketplace.jade', {'results': results})
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 			elif 'company_name' in request.POST:
 				company_name = request.POST['company_name']
 				result_count = len(GlideProfile.objects.filter(company=company_name))
@@ -101,7 +85,6 @@ def marketplace(request):
 				return render(request, 'marketplace.jade', {'results':results})
 			elif 'interest_name' in request.POST:
 				interest_name = request.POST['interest_name']
-<<<<<<< HEAD
 				matches = GlideProfile.objects.filter
 				print dir(matches)
 				results = []
@@ -181,17 +164,3 @@ def marketplace(request):
 		return render(request, 'marketplace.jade', {'form':forms})
 	
 	
-=======
-				matches = GlideProfile.objects.filter(interest="Hacker")
-				print matches
-				results = []
-				for i in results:
-					results.append(i)
-				return render(request, 'marketplace.jade', {'results':results})
-		return render(request, 'marketplace.jade', {'interests':interests, 'form':forms, 'companies':companies, 'professions':professions})
-	else:
-		if request.POST:
-			print request.POST
-		return render(request, 'marketplace.jade', {'form':forms})
-	
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400

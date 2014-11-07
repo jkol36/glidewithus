@@ -2,11 +2,7 @@
 html
 	head
 		link(rel="stylesheet", href="{{STATIC_URL}}/profiles/css/base.css")
-<<<<<<< HEAD
 		link(rel="stylesheet", href="{{STATIC_URL}}css/marketplace.css")
-=======
-		link(rel="stylesheet", href="{{STATIC_URL}}/css/marketplace.css")
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 		link(rel="stylesheet", href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
 		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css")
 		link(rel="stylesheet",href='http://fonts.googleapis.com/css?family=Oxygen')
@@ -16,7 +12,6 @@ html
 		meta(charset="utf-8")
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		title GlideWithUs
-<<<<<<< HEAD
 
 .nav.navbar-default(role="navigation")
 	.container-fluid
@@ -59,127 +54,9 @@ html
 							a(href="#SearchByLocation", data-toggle="modal", data-target="#SearchByLocation") By Location
 				li
 					a(href="#") Help
-=======
-	.modal.fade#profilemodal(tab-index='-1', role="dialog", aria-hidden="True", aria-labelledby="#profilemodal")
-		.modal-dialog
-			.modal-header
-				button.close(type="button", data-dismiss="modal")
-					span(aria-hidden="true")&times;
-					span.sr-only close
-				h4.modal-title Profile Summary
-			.modal-body
-				p(name="name")#ModelBodyName hello {{i.profile.first_name}}
-	.nav.navbar-default(role="navigation")
-		.container-fluid
-			.navbar-header
-				button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#collapsed_nav")
-					span.sr-only Toggle navigation
-					span.icon-bar
-					span.icon-bar
-					span.icon-bar
-
-				a.navbar-brand#navbrand(href="{{home}}/home")
-					img(src="{{STATIC_URL}}/landing/images/logo1.png")
-			.collapse.navbar-collapse#collapsed_nav
-				ul.nav.navbar-nav.navbar-right
-					li.dropdown
-						a#dLabel(href="#", role="button", data-toggle="dropdown", data-target="#") {{user.first_name}}
-							span.caret
-						
-						ul.dropdown-menu(role="menu", aria-labelledby="dLabel")
-							li 
-								a(href="profile") My Profile
-							li
-								a(href="settings") Edit Settings
-							li
-								a(href="{% url 'logout' %}") Logout
-
-					li.dropdown
-						a#Browse(href="#", role="button", data-toggle="dropdown", data-target="#") Browse People
-							span.caret
-						ul.dropdown-menu(role="menu", aria-labelledby="Browse")
-							li
-								a(href="#SearchByInterest", data-toggle="modal", data-target="#SearchByInterest") By Interests
-							li 
-								a(href="#SearchByCompany", data-toggle="modal", data-target="#SearchByCompany") By Company
-							li
-								a(href="#SearchByProfession", data-toggle="modal", data-target="#SearchByProfession") By profession
-							li 
-								a(href="#SearchByLocation", data-toggle="modal", data-target="#SearchByLocation") By Location
-					li
-						a(href="#") Help
-	.modal.fade#SearchByLocation(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="#BrowseByLocation")
-		.modal-dialog
-			.modal-content
-				.modal-header
-					h4.modal-title Where are you going?
-						button.close(type="button", data-dismiss="modal")
-							span(aria-hidden="true")&times;
-							span.sr-only close
-
-				.modal-body
-					form(role="form", href="{% url 'marketplace' %}", action="{% url 'marketplace' %}", method="POST")
-						.form-group
-							{%csrf_token%}
-							input.form-control(type="text", id="Location", name="location", placeholder="Type in a city")
-						button.btn.btn-success(type="submit", value="submit") Search
-	.modal.fade#SearchByInterest(tabindex="-1", role="dialog", aria-labelledby="#BrowseInterests", aria-hidden="true")
-		.modal-dialog
-			.modal-content
-				.modal-header
-					button.close(type="button", data-dismiss="modal")
-						span(aria-hidden="true")&times;
-						span.sr-only close
-					h4.modal-title#S_Interest Find people who are interested in...
-				.modal-body
-					form(role="form", action="{% url 'marketplace' %}", method="POST")
-						.form-group
-							{%csrf_token%}
-							{{form.search_interest}}
-						button.btn.btn-success(type="submit", value="submit") Go
-	.modal.fade#SearchByCompany(tabindex='-1', role="dialog", aria-labelledby="#BrowseByCompany", aria-hidden="true")
-		.modal-dialog
-			.modal-content
-				.modal-header
-					button.close(type="button", data-dismiss="modal")
-						span(aria-hidden="true")&times;
-						span.sr-only close
-					h4.modal-title Find people who work for a speciic company
-				.modal-body
-					form(role="form", action="{% url 'marketplace' %}", method="POST")
-						.form-group
-							{%csrf_token%}
-							{{form.company_form}}
-						button.btn.btn-success(type="submit", value="submit") Go
-	.modal.fade#SearchByProfession(tabindex='-1', role="dialog", aria-labelledby="#BrowseByProfession", aria-hidden="true")
-		.modal-dialog
-			.modal-content
-				.modal-header
-					button.close(type="button", data-dismiss="modal")
-						span(aria-hidden="true")&times;
-						span.sr-only close
-					h4.modal-title Find people who have a certain profession
-				.modal-body
-					form(role="form", action="{% url 'marketplace' %}", method="POST")
-						.form-group
-							{%csrf_token%}
-							{{form.profession_form}}
-						button.btn.btn-success(type="submit", value="submit") Go
-					
-	.row
-		.col-lg-4
-		.col-lg.col-lg-6(style="margin-top:1%")
-			
-			form.form-inline(role="form", method="POST", action="{% url 'marketplace' %}")
-				.form-group#LocationSearch
-					{%csrf_token%}
-					input.form-control(type="text", id="Location", name="location", placeholder="Where are you going?")
-				button.btn.btn-success(type="submit", value="submit") Search
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 			
 			{%endif%}
 
-<<<<<<< HEAD
 // generate a model for each user in results
 
 {% for item1, item2 in results %}
@@ -398,86 +275,6 @@ html
 				
 	
 		
-=======
-						
-	.row(style="margin-left:1%;")			
-		.col-sm.col-lg-4(style="margin-top:1%;")
-			.panel-group#Filter
-				.panel.panel-default
-					.panel-heading 
-						h4.panel-title
-							a(data-toggle="collapse", data-parent="#Filter", href="#filter") Filter
-					.panel-collapse.collapse.in#filter
-						.panel-body
-							.panel-group#accordion
-								.panel.panel-default
-									.panel-heading 
-										h4.panel-title
-											a(data-toggle="collapse", data-parent="accordion", href="#collapse_interests") By interests
-									.panel-collapse.collapse.out#collapse_interests
-										.panel-body#interestform
-											{%csrf_token%}
-											{{form.searchinterestform}}
-											
-							.panel-group#accordion
-								.panel.panel-default
-									.panel-heading
-										h4.panel-title
-											a(data-toggle="collapse", data-parent="#accordion", href="#collapse_company") By Company
-									.panel-collapse.collapse.out#collapse_company
-										.panel-body
-											h1(style="font-size:1em;") Current Companies
-											{% for company in companies %}
-											
-											{{company}}
-											{%endfor%}
-
-
-							.panel-group#accordion
-								.panel.panel-default
-									.panel-heading
-										h4.panel-title
-											a(data-toggle="collapse", data-parent="#accordion", href="#collapse_profession") By Profession
-									.panel-collapse.collapse.out#collapse_profession
-										.panel-body
-											{% for profession in professions %}
-		
-											{{profession}}
-											{%endfor%}
-								button.btn.btn-success(role="button", type="submit", style="margin-top:5px; margin-right:0, margin-left:auto;", value="submit") Apply Filters
-		.col-sm.col-lg-7(style="margin-top:1%;")
-			.panel.panel-default#results
-				.panel-heading Results
-				.panel-body
-					{% if results %}
-					{%for i in results %}
-					.row
-						.col-sm.col-md-2
-							.thumbnail
-								img(src="http://placehold.it/75x75")
-						.col-sm.col-md-6
-							a(href="#profilemodal", id="{{i.profile.first_name}}", data-target="#profilemodal", name="{{i.profile.first_name}} {{i.profile.last_name}}",  value="{{i.profile.first_name}} {{i.profile.last_name}}", data-toggle="modal") {{i.profile.first_name}} {{i.profile.last_name}}
-							p Mission Statement: {{i.mission_statement}}
-							p Traveler Pitch: {{i.traveler_pitch}}
-						.col-sm.col-md-3 
-							button.btn.btn-primary(role="button", style="margin-bottom:4px;") Buy {{i.profile.first_name}} a Coffee
-							button.btn.btn-primary(role="button", style="margin-bottom:4px;") Buy {{i.profile.first_name}} a Beer
-							button.btn.btn-primary(role="button", styel="margin-bottom:4px;") Send {{i.profile.first_name}} a meetup request
-					{%endfor%}
-					{%endif%}
-					{%if not results %}
-					p No results
-					{%endif%}
-
-	.row(style="margin-left:1%;")
-		.col-sm.col-lg-4(style="margin-top:1px;")
-			.panel-group#ViewedProfiles
-				.panel.panel-default
-					.panel-heading
-						h4.panel-title Who you've viewed
-					.panel-body
-						p You haven't viewed any profiles
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 
 
 
@@ -487,7 +284,6 @@ html
 script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
 script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
 script(src="{{STATIC_URL}}/profiles/js/holder.js")
-<<<<<<< HEAD
 script(src="http://code.jquery.com/ui/1.11.2/jquery-ui.js")
 script(type="text/javascript")
 		$('.thumbnail').hover(function() {
@@ -530,15 +326,3 @@ script(type="text/javascript")
 			})
 
 		
-=======
-script(type="text/javascript").
-	window.onload = function() {
-	var a = document.getElementById('{{i.profile.first_name}}');
-	a.onclick = function() {
-	var f = a['name'];
-	var b = document.getElementById('ModelBodyName').innerHTML = f;
-	}
-	}
-
-
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
