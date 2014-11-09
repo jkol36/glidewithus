@@ -185,11 +185,15 @@ html
 		.col-md-4
 			.panel.panel-default
 				.panel-heading
-					h4.panel-title(style="text-align:center;") Messages
+					h4.panel-title(style="text-align:center;") Notifications
 				.panel-body
 					{%if sender %}
 					{% for request in sender %}
 					p New meetup request from {{request}}!
+					p When? {{request.date}}
+					p Message {{request.message}}
+					button.btn.btn-success Accept 
+					button.btn.btn-danger Decline 
 					{%endfor %}
 					{%endif %}
 					{%if not sender %}

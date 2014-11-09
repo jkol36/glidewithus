@@ -1,7 +1,6 @@
 #purchasecoffee {
 	font-size:0.8em;
 }
-<<<<<<< HEAD
 p {
 	text-align: center;
 }
@@ -9,10 +8,6 @@ p {
 .btn {
 	font-family:'Raleway';
 }
-=======
-
-
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 #results a {
 	text-decoration: none;
 	font-size:1.3em;
@@ -20,7 +15,6 @@ p {
 #results p {
 	font-size: 1.1em;
 }
-<<<<<<< HEAD
 .thumbnail {
     position:relative;
     overflow:hidden;
@@ -55,9 +49,6 @@ p {
     z-index:2;
 
 }
-=======
-
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400
 #results .row {
 	padding-top:1%;
 	padding-bottom:1%;
@@ -69,7 +60,6 @@ p {
 	width:75%;
 }
 
-<<<<<<< HEAD
 #search {
 	margin-top:-48px !important;
 	float: right;
@@ -108,8 +98,3 @@ p {
 }
 
 
-=======
-#LocationSearch > input {
-	width:100%;
-}
->>>>>>> f655b4bd88bb89dc9c671015128227aab0b56400

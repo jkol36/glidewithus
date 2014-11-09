@@ -16,33 +16,6 @@ def marketplace(request):
 	senders = []
 	recipient = meetup_request.get_recipient()
 	sender_object = meetuprequest.objects.filter(target_recipient=request.user.glideprofile)
-	print sender_object
-	def get_interests(self):
-		interests = self.user.glideprofile.interest_set.all()
-		if interests:
-			return interests
-		else:
-			return None
-	def get_professions(self):
-		professions = self.user.glideprofile.proffession_set.all()
-		if proffessions:
-			return professions
-		else:
-			return None
-	def get_companies(self):
-		companies = self.glideprofile.objects.company_set.all()
-		if companies:
-			return companies
-		else:
-			return None
-	def get_meetup_requests(self):
-		meetup_request = meetuprequest(target_recipient=self.user.glideprofile)
-		recipient = meetup_request.get_recipient() #We want to get the recipient to make sure recipient is also the owner of the profile.
-		sender_object = meetuprequest.objects.filter(target_recipient=self.user.glideprofile)
-		return "%s"("%s")("%s") %(meetup_request, recipient, sender_object)
-
-
-
 	forms = {'company_form':filterbycompanyForm, 'meetup_form':sendmeetrequestForm, 'profession_form':filterbyprofessionForm, 'searchlocation':SearchLocationForm, 'search_interest':filterbyinterestForm}
 	if interests:
 		if request.POST:
@@ -93,7 +66,7 @@ def marketplace(request):
 				return render(request, 'marketplace.jade', {'results':results})
 			elif 'view all' in request.POST:
 				result_count = len(GlideProfile.objects.all())
-				matches = GlideProfile.objects.all()
+				matches = GlideProfile.objects.all().exclude(profile=request.user)
 				results = []
 				results_list_one = []
 				results_list_two = []
@@ -150,7 +123,7 @@ def marketplace(request):
 			elif 'view all' in request.POST:
 				print request.POST
 				result_count = len(GlideProfile.objects.all())
-				matches = GlideProfile.objects.all()
+				matches = GlideProfile.objects.all().exclude(profile=request.user)
 				results_list_one = []
 				result_list_two = []
 				results = []
