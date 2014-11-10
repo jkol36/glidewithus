@@ -103,19 +103,11 @@ def marketplace(request):
 				result_count = len(GlideProfile.objects.filter())
 				matches = GlideProfile.objects.filter(city__icontains=location)
 				results = []
-				results_list_one = []
-				results_list_two = []
 				companies = []
 				count = 0
 				for match in matches:
-					if count < len(matches):
-						results_list_one.append(matches[count])
-						count+=1
-						if count < len(matches):
-							results_list_two.append(matches[count])
-							count+=1
-				list = zip(results_list_one, results_list_two)
-				return render(request, 'marketplace.jade', {'results': list, 'form':forms})
+					results.append(match[count])
+				return render(request, 'marketplace.jade', {'results': results, 'form':forms})
 			elif 'view all' in request.POST:
 				print request.POST
 				result_count = len(GlideProfile.objects.all())
