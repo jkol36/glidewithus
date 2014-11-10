@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home$', 'glidewithus.landing.views.home', name = 'home'),
     url(r'marketplace', 'glidewithus.marketplace.views.marketplace', name="marketplace"),
+    url(r'message', 'glidewithus.marketplace.views.message', name="message"),
     url(r'settings', 'glidewithus.profiles.views.settings', name="settings"),
 
 )

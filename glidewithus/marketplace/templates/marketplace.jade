@@ -144,7 +144,10 @@ html
 	.modal-dialog
 		.modal-content
 			.modal-header
-				h4.modal-title Send 
+				h4.modal-title Send
+			.modal-body
+				
+
 .modal.fade#meetupmodal(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="meetupmodal")
 	.modal-dialog
 		.modal-content
@@ -207,7 +210,7 @@ html
 			span(style="text-align:center; margin-left:15%;").
 				Or
 			li.meetup_group
-				button.btn.btn-danger(href="#meetupgroup", class="send_message", value="{{match.profile.first_name}}", data-target="#meetupmodal", id="{{match.profile.username}}", data-toggle="modal") Send {{match.profile.first_name}} a message
+				button.btn.btn-danger(href="#send_message", class="send_message", value="{{match.profile.first_name}}", data-target="#meetupmodal", id="{{match.profile.username}}", data-toggle="modal") Send {{match.profile.first_name}} a message
 
 
 		
@@ -263,9 +266,9 @@ script(type="text/javascript")
 			$('.send_message').click(function() {
 				instance = $(this).attr('id')
 				name = $(this).attr('value')
-				modal_title = $('#meetupmodal').find('.modal-title')
+				modal_title = $('#sendmessage').find('.modal-title')
 				modal_title.html("Send " + name +" a message!")
-				send_to = $('#meetupmodal').find('.meet')
+				send_to = $('#sendmessage').find('.meet')
 				new_send_to = send_to.attr('value', instance)
 				})
 			$('#meetupmodal').find("#datepicker").datepicker();

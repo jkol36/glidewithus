@@ -42,8 +42,8 @@ INSTALLED_APPS = (
     'glidewithus.landing.registration',
     'glidewithus.dashboard',
     'glidewithus.marketplace',
-    'glidewithus.feed',
     'glidewithus.booking',
+    'glidewithus.messaging',
     'django_ajax',
 )
 

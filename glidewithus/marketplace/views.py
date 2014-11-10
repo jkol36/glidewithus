@@ -22,8 +22,7 @@ def marketplace(request):
 
 			if 'location' in request.POST:
 				location = request.POST['location']
-				result_count = len(GlideProfile.objects.filter(city_icontains=location))
-				matches = GlideProfile.objects.filter(city_icontains=location)
+				matches = GlideProfile.objects.filter(city__icontains=location)
 				results = []
 				count = 0
 				for match in matches:
@@ -31,30 +30,6 @@ def marketplace(request):
 					count +=1
 				return render(request, 'marketplace.jade', {'results': results, 'form':forms})
 
-			elif 'company_name' in request.POST:
-				company_name = request.POST['company_name']
-				result_count = len(GlideProfile.objects.filter(company=company_name))
-				matches = GlideProfile.objects.filter(company=company_name)
-				results = []
-				for i in matches:
-					results.append(i)
-				return render(request,'marketplace.jade', {'results':results})
-			elif 'profession_name' in request.POST:
-				profession_name = request.POST['profession_name']
-				result_count = len(GlideProfile.objects.filter(Proffession=profession_name))
-				matches = GlideProfile.objects.filter(Proffession=profession_name)
-				results = []
-				for i in matches:
-					results.append(i)
-				return render(request, 'marketplace.jade', {'results':results})
-			elif 'interest_name' in request.POST:
-				interest_name = request.POST['interest_name']
-				matches = GlideProfile.objects.filter
-				print dir(matches)
-				results = []
-				for i in matches:
-					results.append(i)
-				return render(request, 'marketplace.jade', {'results':results})
 			elif 'view all' in request.POST:
 				result_count = len(GlideProfile.objects.all())
 				matches = GlideProfile.objects.all().exclude(profile=request.user)
@@ -65,7 +40,6 @@ def marketplace(request):
 						results.append(matches[count])
 					except Exception, e:
 						return e
-
 				return render(request, 'marketplace.jade', {'results':results, 'form':forms})
 			elif 'send_meetup_request' in request.POST:
 				sender = request.user.username
@@ -114,9 +88,11 @@ def marketplace(request):
 					except Exception, e:
 						count = len(matches)-1
 						break
-
-					
 			return render(request, 'marketplace.jade', {'form':forms, 'results':results})
 		return render(request, 'marketplace.jade', {'form':forms})
-	
+
+@login_required
+def messages(request):
+	if request.POST:
+		print request.POST
 	
