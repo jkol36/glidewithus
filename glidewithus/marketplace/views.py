@@ -23,8 +23,8 @@ def marketplace(request):
 
 			if 'location' in request.POST:
 				location = request.POST['location']
-				result_count = len(GlideProfile.objects.filter(city=location))
-				matches = GlideProfile.objects.filter(city=location)
+				result_count = len(GlideProfile.objects.filter(city_icontains=location))
+				matches = GlideProfile.objects.filter(city_icontains=location)
 				results = []
 				results_list_one = []
 				results_list_two = []
@@ -68,18 +68,14 @@ def marketplace(request):
 				result_count = len(GlideProfile.objects.all())
 				matches = GlideProfile.objects.all().exclude(profile=request.user)
 				results = []
-				results_list_one = []
-				results_list_two = []
 				count = 0
-				for match in matches:
-					if count < len(matches):
-						results_list_one.append(matches[count])
-						count+=1
-						if count < len(matches):
-							results_list_two.append(matches[count])
-							count+=1
-				list = zip(results_list_one, results_list_two)
-				return render(request, 'marketplace.jade', {'results':list, 'form':forms})
+				while matches and count < result_count:
+					try:
+						results.append(matches[count])
+					except Exception, e:
+						return e
+
+				return render(request, 'marketplace.jade', {'results':results, 'form':forms})
 			elif 'send_meetup_request' in request.POST:
 				sender = request.user.username
 				reciever = request.POST['send_to']
@@ -103,9 +99,9 @@ def marketplace(request):
 		if request.POST:
 			if 'location' in request.POST:
 				print 'location in request.post'
-				location = request.POST['location'.lower()]
-				result_count = len(GlideProfile.objects.filter(city=location))
-				matches = GlideProfile.objects.filter(city=location)
+				location = request.POST['location']
+				result_count = len(GlideProfile.objects.filter())
+				matches = GlideProfile.objects.filter(city__icontains=location)
 				results = []
 				results_list_one = []
 				results_list_two = []
@@ -123,16 +119,19 @@ def marketplace(request):
 			elif 'view all' in request.POST:
 				print request.POST
 				result_count = len(GlideProfile.objects.all())
+				print result_count
 				matches = GlideProfile.objects.all().exclude(profile=request.user)
-				results_list_one = []
-				result_list_two = []
 				results = []
-				companies = []
-				for i in matches:
-					results.append(i)
-				print "result list one. Should have 50 percent more results than result list two"
-				print "result one %s" %(result_list_one)
-				print "result two %s"%(result_list_two)
+				count = 0
+				while matches:
+					try:
+						results.append(matches[count])
+						count+=1
+					except Exception, e:
+						count = len(matches)-1
+						break
+
+					
 			return render(request, 'marketplace.jade', {'form':forms, 'results':results})
 		return render(request, 'marketplace.jade', {'form':forms})
 	

@@ -174,95 +174,47 @@ html
 					.form-group
 						{%csrf_token%}
 						input.form-control(type="text", name="location", style="margin-top:10px;", placeholder="Where are you going?") 
-					button.btn.btn-success#search(type="submit", value="submit", style="margin-top:10px;") Search
+					button.btn.btn-coffee#search(type="submit", value="submit", style="margin-top:10px;") Search
 			.col-md-2(style="margin-left:100px;")
 				form(role="form", method="POST", action="{%url 'marketplace' %}")
 					.form-group(style="display:none;")
 						{%csrf_token%}
 						input(type="hidden", value="view all", name="view all")
-					button.btn.btn-danger(type="submit", style="margin-top:10px;", value="submit") View All
-.row
+					button.btn.btn-beer(type="submit", style="margin-top:10px;", value="submit") View All
+
+	
+
+.container-fluid
+	{% for match in results %}
+	{%if match.profile_pic %}
+	{%thumbnail match.profile_pic "500x250" crop="center" as image %}
+	.row
 		.col-md-4
-			.panel.panel-default
-				.panel-heading
-					h4.panel-title(style="text-align:center;") Notifications
-				.panel-body
-					{%if sender %}
-					{% for request in sender %}
-					p New meetup request from {{request}}!
-					p When? {{request.date}}
-					p Message {{request.message}}
-					button.btn.btn-success Accept 
-					button.btn.btn-danger Decline 
-					{%endfor %}
-					{%endif %}
-					{%if not sender %}
-					p meetup requests will apear here!
-					{%endif %}
+		.col-md-4
+			.thumbnail
+				img.rounded(src="{{image.url}}", width="{{image.width}}", height="{{image.height}}")
+				{%endthumbnail%}
+				.caption
+					p.primary(style="font-size:1.8em;") {{match.profile.first_name}} {{match.profile.last_name}}
+					p.primary about {{match.profile.first_name}}
+					p.secondary {{match.mission_statement}}
+					p.secondary {{match.traveler_pitch}}
+		.col-md-4
+			li.meetup_group
+				button.btn.btn-beer(href="#meetupmodal", class="get_beer", style="display:inline-block;", value="{{match.profile.first_name}}", data-target="#meetupmodal", id="{{match.profile.username}}", data-toggle="modal") Get a Beer with {{match.profile.first_name}}
+			li.meetup_group
+				button.btn.btn-coffee(href="#meetupmodal", class="get_coffee", style="display:inline-block;", value="{{match.profile.first_name}}", data-target="#meetupmodal", id="{{match.profile.username}}", data-toggle="modal") Get Coffee with {{match.profile.first_name}}
+			span(style="text-align:center; margin-left:15%;").
+				Or
+			li.meetup_group
+				button.btn.btn-danger(href="#meetupgroup", class="send_message", value="{{match.profile.first_name}}", data-target="#meetupmodal", id="{{match.profile.username}}", data-toggle="modal") Send {{match.profile.first_name}} a message
 
-		.col-md-8
-			.panel.panel-default
-				.panel-heading
-					h4.panel-title(style="text-align:center;") Results 
-				.panel-body
-					{% for item1, item2 in results %}
-					{%if item1.profile_pic %}
-					{%if item2.profile_pic %}
-					{%thumbnail item1.profile_pic "900x500" crop="center" as image %}
-					.row
-						.col-md-8
-							.thumbnail
-								img.rounded(src="{{image.url}}", width="{{image.width}}", height="{{image.height}}")
-								{%endthumbnail%}
 
-								.caption_1
-									{%thumbnail item1.profile_pic "150x150" crop="center" as im %}
-									img.img-circle(src="{{im.url}}", style="float:left;", width="{{im.width}}", height="{{im.height}}")
-									{%endthumbnail%}
-									p.primary(style="font-size:1.8em;") {{item1.profile.first_name}} {{item1.profile.last_name}}
-									p.primary about {{item1.profile.first_name}}
-									p.secondary {{item1.mission_statement}}
-									p.secondary {{item1.traveler_pitch}}
-									.btn-group.dropup
-										button.btn.btn-success.dropdown-toggle(data-toggle="dropdown",style="width:215px; margin-left:143px;") Meet {{item1.profile.first_name}}
-											span.caret
-										ul.dropdown-menu(style="margin-left:143px; z-index=4;")
-											li
-												a(href="#meetupmodal", class="get_beer", value="{{item1.profile.first_name}}", data-target="#meetupmodal", id="{{item1.profile.username}}", data-toggle="modal") Get a beer with {{item1.profile.first_name}}
-											li 
-												a(href="#meetupmodal", class="get_coffee", value="{{item1.profile.first_name}}", data-target="#meetupmodal", id="{{item1.profile.username}}", data-toggle="modal") Get Coffee with {{item1.profile.first_name}}
-											li
-												a(href="#meetupmodal", class="send_message", value="{{item1.profile.first_name}}", data-target="#meetupmodal", id="{{item1.profile.username}}", data-toggle="modal") Send {{item1.profile.first_name}} a message
-												
-
-						.col-md-4
-							.thumbnail
-								{% thumbnail item2.profile_pic "500x600" crop="center" as im%}
-								img(src="{{im.url}}", width="{{im.width}}", height="{{im.height}}")
-								{%endthumbnail%}
-								.caption_1
-									{%thumbnail item2.profile_pic "75x75" crop="center" as im%}
-									img(src="{{im.url}}", width="{{im.width}}", height="{{im.height}}")
-									{%endthumbnail%}
-									p.primary(style="font-size:1.8em;") {{item2.profile.first_name}} {{item2.profile.last_name}}
-									p.primary(style="font-weight:bold;") About {{item2.profile.first_name}}
-									p.secondary(style="text-align:center;") {{item2.mission_statement}}
-									.btn-group.dropup
-										button.btn.btn-success.dropdown-toggle(data-toggle="dropdown") Meet {{item2.profile.first_name}}
-											span.caret
-										ul.dropdown-menu
-											li
-												a(href="#meetupmodal", data-target="#meetupmodal", class="get_beer", id="{{item2.profile.username}}", value="{{item2.profile.first_name}}", data-toggle="modal") Get a beer with {{item2.profile.first_name}}
-											li
-												a(href="#meetupmodal", data-target="#meetupmodal", class="get_coffee", id="{{item2.profile.username}}", value="{{item2.profile.first_name}}", data-toggle="modal") Get coffee with {{item2.profile.first_name}}
-												
-											li
-												a(href="#meetupmodal", data-target="#meetupmodal", class="send_message", id="{{item2.profile.username}}", value="{{item2.profile.first_name}}", data-toggle="modal") Send {{item2.profile.first_name}} a message
-									
-					{%endif%}
-					{%endif%}
-					{%endfor%}
-									
+		
+					
+	{%endif %}
+	{%endfor%}
+								
 
 			
 				
@@ -289,16 +241,6 @@ script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
 script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js")
 script(src="{{STATIC_URL}}/profiles/js/holder.js")
 script(src="http://code.jquery.com/ui/1.11.2/jquery-ui.js")
-script(type="text/javascript")
-		$('.thumbnail').hover(function() {
-			$(this).addClass('opacity');
-			$(this).find('.caption_1').fadeIn(250);
-			},
-			function() {
-				$(this).removeClass('opacity');
-				$(this).find('.caption_1').fadeOut(250);
-				});
-
 script(type="text/javascript")
 		$(document).ready(function() {
 			$('.get_beer').click(function() {

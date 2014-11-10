@@ -22,33 +22,25 @@ p {
 .opacity {
 	opacity:0.8;
 }
-.caption {
-	position:absolute;
-	top: 0;
-	left:0;
-
-
+.meetup_group {
+	list-style: none;
+	margin-top:5px;
+	margin-bottom:5px;
 }
+
 .caption a {
 	text-decoration: none;
 	color: #fff;
 	font-family:'Oxygen';
 	z-index: 1;
 }
-.caption_1 {
-	position:absolute;
-    top:0;
-    right:0;
-    background:white;
-    width:100%;
-    height:100%;
-    padding:2%;
-    display: none;
-    text-align:center;
-    color: black !important;
-    z-index:2;
 
+.btn.btn-primary {
+	background-color:#2b669a !important;
+	border-color:#2b669a !important;
 }
+
+
 #results .row {
 	padding-top:1%;
 	padding-bottom:1%;
@@ -56,6 +48,25 @@ p {
 	margin-bottom: 1%;
 }
 
+.btn.btn-coffee {
+	background-color: #20CB92;
+	color:#fff;
+	border:1px #20CB92;
+}
+
+.btn.btn-beer {
+	background-color:#FF5891;
+	border:1px #FF5891;
+	color:#fff;
+}
+
+.btn.btn-beer:hover {
+	color:#fff;
+}
+
+.btn.btn-coffee:hover {
+	color:#fff;
+}
 #LocationSearch {
 	width:75%;
 }

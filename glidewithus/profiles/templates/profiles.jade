@@ -276,46 +276,55 @@ html
 			.panel.panel-default
 				.panel-heading Tell us a little bit about yourself
 				.panel-body
-					h1(style="font-size:2em;") 
-					{% if mission %}
-					p(style="font-family:Raleway;") Mission Statement: 
-					p {{mission}}
-						span
-							a(href="#Edit_Mission", data-toggle="modal", data-target="#Edit_Mission", style="padding-left:5px;") Edit
-					{%endif%}
-					{%if not mission %}
-					p(style="font-family:Raleway; font-weight=bold;") Mission Statement
-					form(role="form", method="POST", action="{% url 'profile' %}")
-						{%csrf_token %}
-						{{form.missionform}}
-						button.btn.btn-success(type="submit", value="submit") submit
-					{%endif%}
+					.panel.panel-about
+						.panel-heading What's your passion in life?
+						.panel-body
+							{% if mission %}
+							p(style="font-family:Raleway; font-size:3.1em;") {{mission}}
+								span
+									a(href="#Edit_Mission", data-toggle="modal", data-target="#Edit_Mission", style="padding-left:5px;") Edit
+							{%endif%}
+							{%if not mission %}
+							p(style="font-family:Raleway; font-weight=bold;") What's your passion in life?
+							form(role="form", method="POST", action="{% url 'profile' %}")
+								{%csrf_token %}
+								{{form.missionform}}
+								button.btn.btn-coffee(type="submit", value="submit") submit
+							{%endif%}
 					{%if not awesome %}
-					p(style="font-family:Raleway;") Why are you awesome?
-					form(role="form", method="POST", action="{% url 'profile' %}")
-						{%csrf_token %}
-						{{form.awesomeform}}
-						button.btn.btn-success(type="submit", value="submit") Submit
+					.panel.panel-about
+						.panel-heading Why are you awesome?
+						.panel-body
+							form(role="form", method="POST", action="{% url 'profile' %}")
+								{%csrf_token %}
+								{{form.awesomeform}}
+								button.btn.btn-success(type="submit", value="submit") Submit
 					{%endif%}
 					{% if awesome %}
-					p(style="font-family:Raleway; font-weight:bold;") Why you are awesome: 
-					p{{awesome}}
-						span
-							a(href="#edit_awesome", data-toggle="modal", data-target="#edit_awesome") Change
-					{%endif%}								
+					.panel.panel-about
+						.panel-heading Why are you awesome?	
+						.panel-body
+							p(style="font-family:Raleway; font-size:3.1em;") {{awesome}}
+								span
+									a(href="#edit_awesome", data-toggle="modal", data-target="#edit_awesome") Change
+							{%endif%}								
 					{%if not traveler_pitch%}
-					p(style="font-family:Raleway;") Why should a traveler visiting your city want to meet up with you?
-					form(role="form", method="POST", action="{% url 'profile' %}")
-						{%csrf_token %}
-						{{form.travelform}}
-						button.btn.btn-success(type="submit", value="submit") submit
+					.panel.panel-about
+						.panel-heading Why should a traveler want to meet up with you?
+						.panel-body
+							form(role="form", method="POST", action="{% url 'profile' %}")
+								{%csrf_token %}
+								{{form.travelform}}
+								button.btn.btn-success(type="submit", value="submit") submit
 					{%endif%}
 					{%if traveler_pitch%}
-					p(style="font-family:Raleway; font-weight:bold;") Your Traveler Pitch: 
-					p {{traveler_pitch}}
-						span
-							a(href="#edit_travelerpitch", data-toggle="modal", data-target="#edit_travelerpitch") Change
-					{%endif%}
+					.panel.panel-about
+						.panel-heading Why should a traveler want to meet up with you?
+						.panel-body
+							p(style="font-size:3.1em; font-family:Raleway") {{traveler_pitch}}
+								span
+									a(href="#edit_travelerpitch", data-toggle="modal", data-target="#edit_travelerpitch") Change
+						{%endif%}
 
 
 		.col-sm.col-md-3

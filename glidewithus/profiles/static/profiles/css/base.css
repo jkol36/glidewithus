@@ -80,6 +80,22 @@ label#id_select_interest {
 .content {
 	padding: 25px;
 }
+
+.panel.panel-default .panel-heading {
+  background-color:#2b669a;
+  color:#fff;
+}
+.panel.panel-about .panel-heading {
+  background-color:#20CB92;
+  color:#fff;
+  border:4px solid #20CB92;
+}
+
+.panel.panel-about .panel-body {
+  border:1px solid #20CB92;
+
+}
+
 .jumbotron#backgroundimage > button.btn.btn-primary {
 	background: #06D1FA;
 	margin-left: 25%;

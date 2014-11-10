@@ -65,8 +65,8 @@ def profile(request):
 					mission = request.user.glideprofile.mission_statement
 					form = GlideProfileForm(request.POST, instance = request.user.glideprofile)
 					if form.is_valid():
-						mission_statement = form.cleaned_data['mission_statement']
-						city = form.cleaned_data['city']
+						mission_statement = form.cleaned_data['mission_statement'].__format__(mission_statement[0].uppercase())
+						city = form.cleaned_data['city'].__format__(city[0].uppercase())
 						state = form.cleaned_data['state']
 						age = form.cleaned_data['age']
 						country = form.cleaned_data['country']
@@ -78,19 +78,20 @@ def profile(request):
 						request.user.glideprofile.save()
 				
 				elif "Interest_name" in request.POST:
-					print request.POST
 					form = InterestForm(data = request.POST, instance = request.user.glideprofile)
 					if form.is_valid():
-						new_interest = form.cleaned_data['Interest_name']
-						request.user.glideprofile.interest_set.get_or_create(name=new_interest)
-						request.user.save()
+						interest = form.cleaned_data["Interest_name"]
+
+
+						#request.user.glideprofile.interest_set.get_or_create(name=formated_interest)
+						#request.user.save()
 						return redirect('profile')
 				elif "Profession_Name" in request.POST:
 					print request.POST
 					form = ProfessionForm(data=request.POST, instance=request.user.glideprofile)
 
 					if form.is_valid():
-						new_occupation = form.cleaned_data['Profession_Name']
+						new_occupation = form.cleaned_data['Profession_Name'].__format__(new_occupation[0].uppercase())
 						print new_occupation
 						if new_occupation in request.user.glideprofile.proffession_set.all():
 							return HttpResponse("You already added a profession with this name")
@@ -113,7 +114,7 @@ def profile(request):
 				elif 'company_name' in request.POST:
 					form = CompanyForm(data=request.POST, instance=request.user.glideprofile)
 					if form.is_valid():
-						new_company = form.cleaned_data['company_name']
+						new_company = form.cleaned_data['company_name'].__format__(new_company[0].uppercase())
 						request.user.glideprofile.company_set.get_or_create(name=new_company)
 						form.save()
 						return redirect('profile')
@@ -123,7 +124,7 @@ def profile(request):
 					form = LocationForm(data = request.POST, instance = request.user.glideprofile)
 					print form.errors
 					if form.is_valid():
-						city = form.cleaned_data['city']
+						city = form.cleaned_data['city'].__format__(city[0].uppercase())
 						country = form.cleaned_data['country']
 						state = form.cleaned_data['state']
 						request.user.glideprofile.city = city
@@ -136,7 +137,7 @@ def profile(request):
 					print request.POST
 					form = awesomeform(data=request.POST, instance=request.user.glideprofile)
 					if form.is_valid():
-						edited_awesome = form.cleaned_data['edit_awesome']
+						edited_awesome = form.cleaned_data['edit_awesome'].__format__(edited_awesome[0].uppercase())
 						request.user.glideprofile.why_awesome = edited_awesome
 						form.save()
 						return redirect('profile')
@@ -146,7 +147,7 @@ def profile(request):
 				elif 'edit_travelform' in request.POST:
 					form = travelform(data=request.POST, instance=request.user.glideprofile)
 					if form.is_valid():
-						text = form.cleaned_data['edit_travelform']
+						text = form.cleaned_data['edit_travelform'].__format__(text[0].uppercase())
 						request.user.glideprofile.traveler_pitch = text
 						form.save()
 						return redirect('profile')
@@ -155,7 +156,7 @@ def profile(request):
 				elif 'edit_mission' in request.POST:
 					form = missionform(data= request.POST, instance=request.user.glideprofile)
 					if form.is_valid():
-						mission = form.cleaned_data['edit_mission']
+						mission = form.cleaned_data['edit_mission'].__format__(mission[0].uppercase())
 						request.user.glideprofile.mission_statement = mission
 						form.save()
 						return redirect('profile')
