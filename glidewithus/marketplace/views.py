@@ -92,7 +92,7 @@ def marketplace(request):
 		return render(request, 'marketplace.jade', {'form':forms})
 
 @login_required
-def messages(request):
+def message(request):
 	if request.POST:
 		print request.POST
 	
