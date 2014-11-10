@@ -19,26 +19,17 @@ def marketplace(request):
 	forms = {'company_form':filterbycompanyForm, 'meetup_form':sendmeetrequestForm, 'profession_form':filterbyprofessionForm, 'searchlocation':SearchLocationForm, 'search_interest':filterbyinterestForm}
 	if interests:
 		if request.POST:
-			senders = []
 
 			if 'location' in request.POST:
 				location = request.POST['location']
 				result_count = len(GlideProfile.objects.filter(city_icontains=location))
 				matches = GlideProfile.objects.filter(city_icontains=location)
 				results = []
-				results_list_one = []
-				results_list_two = []
-				companies = []
 				count = 0
 				for match in matches:
-					if count < len(matches):
-						results_list_one.append(matches[count])
-						count+=1
-						if count < len(matches):
-							results_list_two.append(matches[count])
-							count+=1
-				list = zip(results_list_one, results_list_two)
-				return render(request, 'marketplace.jade', {'results': list, 'form':forms})
+					results.append(matches[count])
+					count +=1
+				return render(request, 'marketplace.jade', {'results': results, 'form':forms})
 
 			elif 'company_name' in request.POST:
 				company_name = request.POST['company_name']
@@ -106,7 +97,8 @@ def marketplace(request):
 				companies = []
 				count = 0
 				for match in matches:
-					results.append(match[count])
+					results.append(matches[count])
+					count +=1
 				return render(request, 'marketplace.jade', {'results': results, 'form':forms})
 			elif 'view all' in request.POST:
 				print request.POST
