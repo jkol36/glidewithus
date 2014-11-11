@@ -3,6 +3,7 @@ from glidewithus.profiles.models import GlideProfile
 
 # Create your models here.
 class message(models.Model):
+	text = models.CharField(max_length=250, null=True, blank=False)
 	sender = models.ForeignKey(GlideProfile, related_name = "sent_messages", verbose_name="Sender")
 	recipient = models.ForeignKey(GlideProfile, related_name= "recieved_messages", verbose_name = "Reciever")
 	sent_at = models.DateTimeField(auto_now_add = True)

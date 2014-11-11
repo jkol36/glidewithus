@@ -6,6 +6,7 @@ from forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionF
 from glidewithus.booking.forms import sendmeetrequestForm
 from glidewithus.booking.models import meetuprequest
 from glidewithus.messaging.forms import new_message
+from glidewithus.messaging.models import message as MESSAGE
 
 # Create your views here.
 @login_required
@@ -96,4 +97,17 @@ def marketplace(request):
 def message(request):
 	if request.POST:
 		print request.POST
-	
+		if 'send_to' in request.POST:
+			form = new_message(request.POST, instance=request.user.glideprofile)
+			if form.is_valid():
+				message = form.cleaned_data['text']
+				send_to = request.POST['send_to']
+				recipient_user_instance = User.objects.get(username=send_to)
+				recipient = GlideProfile.objects.get(profile=recipient_user_instance)
+				print recipient
+				sender_user = request.user.username
+				sender_user_instance = User.objects.get(username=sender_user)
+				sender = GlideProfile.objects.get(profile=sender_user_instance)
+				print sender
+				new_message_object = MESSAGE.objects.get_or_create(text=message, recipient=recipient, sender=sender)
+				new_message_object.save()

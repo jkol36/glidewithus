@@ -151,9 +151,10 @@ html
 			.modal-body
 				form(role="form", method="POST", action="{% url 'message'%}")
 					.form-group
+						{%csrf_token%}
 						input(type="hidden", class="message", name="send_to", value="")
 						{{form.messageform}}
-
+					button.btn.btn-coffee(type="submit", value="submit") Send
 
 
 .modal.fade#meetupmodal(tabindex="-1", role="dialog", aria-hidden="true", aria-labelledby="meetupmodal")
@@ -171,6 +172,7 @@ html
 						{%csrf_token %}
 						input(type="hidden", class="meet", value="", name="send_to")
 						input(type="hidden", name="send_meetup_request", value="send_meetup_request")
+
 						{{form.meetup_form}}
 						input(type="text", class="form-control", name="date", placeholder="select a date", id="datepicker")
 					button(type="submit", value="submit") Go
