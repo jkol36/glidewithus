@@ -152,7 +152,7 @@ html
 				form(role="form", method="POST", action="{% url 'message'%}")
 					.form-group
 						input(type="hidden", class="message", name="send_to", value="")
-						input(type="text", class="form-control", name="send_message", value="", rows="5", placeholder="Your message here.")
+						{{form.messageform}}
 
 
 
