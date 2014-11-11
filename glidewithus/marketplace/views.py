@@ -5,6 +5,7 @@ from glidewithus.profiles.models import GlideProfile
 from forms import filterbyinterestForm, filterbycompanyForm, filterbyprofessionForm, SearchLocationForm
 from glidewithus.booking.forms import sendmeetrequestForm
 from glidewithus.booking.models import meetuprequest
+from glidewithus.messaging.forms import new_message
 
 # Create your views here.
 @login_required
@@ -16,7 +17,7 @@ def marketplace(request):
 	senders = []
 	recipient = meetup_request.get_recipient()
 	sender_object = meetuprequest.objects.filter(target_recipient=request.user.glideprofile)
-	forms = {'company_form':filterbycompanyForm, 'meetup_form':sendmeetrequestForm, 'profession_form':filterbyprofessionForm, 'searchlocation':SearchLocationForm, 'search_interest':filterbyinterestForm}
+	forms = {'company_form':filterbycompanyForm, 'messageform':new_message, 'meetup_form':sendmeetrequestForm, 'profession_form':filterbyprofessionForm, 'searchlocation':SearchLocationForm, 'search_interest':filterbyinterestForm}
 	if interests:
 		if request.POST:
 
