@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 import json
-from django_ajax.decorators import ajax
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User, AnonymousUser 
 from django.contrib.auth import logout
@@ -242,10 +241,8 @@ def settings(request):
 
 	return render(request, 'settings.jade', {'username': username, 'email':email, 'form':forms})
 
-@login_required
-@ajax
-def removeinterest(request):
-	return {'result':'hello!'}
+
+
 
 		
 
